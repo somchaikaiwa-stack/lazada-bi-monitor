@@ -2,22 +2,32 @@ name: Hourly Logistics BI Tracker & Web Update
 
 on:
   schedule:
-    # รันอัตโนมัติทุกต้นชั่วโมง
-    - cron: '0 * * * *'
+    # 02:45 - 15:45 UTC = 09:45 - 22:45 เวลาไทย (UTC+7)
+    - cron: '45 2-15 * * *'
   workflow_dispatch:
     inputs:
-      partition_day1:
-        description: 'วันที่เริ่มต้น Partition_Day1 (รูปแบบ YYYYMMDD เช่น 20260929 หรือเว้นว่างเพื่อใช้วันนี้)'
+      run_mode:
+        description: 'เลือกโหมดการทำงาน'
+        required: true
+        default: 'auto_hourly'
+        type: choice
+        options:
+          - 'auto_hourly'
+          - 'test_bot_only'
+          - 'test_full_flow'
+          - 'manual_custom'
+      custom_day1:
+        description: '[เฉพาะโหมด manual_custom] วันที่เริ่มต้น (YYYYMMDD)'
         required: false
         default: ''
-      partition_day2:
-        description: 'วันที่สิ้นสุด Partition_Day2 (รูปแบบ YYYYMMDD เช่น 20260929 หรือเว้นว่างเพื่อใช้วันนี้)'
+      custom_day2:
+        description: '[เฉพาะโหมด manual_custom] วันที่สิ้นสุด (YYYYMMDD)'
         required: false
         default: ''
-      report_time:
-        description: 'ตัวกรองเวลา Report_time_Choose_lasted_time (เช่น 7 หรือ [7] หรือเว้นว่างเพื่อใช้ชั่วโมงปัจจุบัน)'
+      custom_hour:
+        description: '[เฉพาะโหมด manual_custom] รอบเวลา (เช่น 7, 8, 22)'
         required: false
-        default: '7'
+        default: ''
 
 permissions:
   contents: write
@@ -44,15 +54,16 @@ jobs:
           BI_ACCESS_TOKEN: ${{ secrets.BI_ACCESS_TOKEN }}
           DINGTALK_WEBHOOK: ${{ secrets.DINGTALK_WEBHOOK }}
           DINGTALK_SECRET: ${{ secrets.DINGTALK_SECRET }}
-          INPUT_DAY1: ${{ github.event.inputs.partition_day1 }}
-          INPUT_DAY2: ${{ github.event.inputs.partition_day2 }}
-          INPUT_REPORT_TIME: ${{ github.event.inputs.report_time }}
+          RUN_MODE: ${{ github.event.inputs.run_mode || 'auto_hourly' }}
+          CUSTOM_DAY1: ${{ github.event.inputs.custom_day1 }}
+          CUSTOM_DAY2: ${{ github.event.inputs.custom_day2 }}
+          CUSTOM_HOUR: ${{ github.event.inputs.custom_hour }}
         run: |
           python tracker.py
 
-      - name: Commit and Push Latest Web Data
+      - name: Commit and Push Latest Web Data & History
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/latest.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto update logistics data [skip ci]" && git push)
+          git add data/latest.json data/daily_history.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto update logistics data & daily log [skip ci]" && git push)
