@@ -2,9 +2,22 @@ name: Hourly Logistics BI Tracker & Web Update
 
 on:
   schedule:
-    # รันทุกต้นชั่วโมง (ตามเวลา UTC)
+    # รันอัตโนมัติทุกต้นชั่วโมง
     - cron: '0 * * * *'
   workflow_dispatch:
+    inputs:
+      partition_day1:
+        description: 'วันที่เริ่มต้น Partition_Day1 (รูปแบบ YYYYMMDD เช่น 20260929 หรือเว้นว่างเพื่อใช้วันนี้)'
+        required: false
+        default: ''
+      partition_day2:
+        description: 'วันที่สิ้นสุด Partition_Day2 (รูปแบบ YYYYMMDD เช่น 20260929 หรือเว้นว่างเพื่อใช้วันนี้)'
+        required: false
+        default: ''
+      report_time:
+        description: 'ตัวกรองเวลา Report_time_Choose_lasted_time (เช่น 7 หรือ [7] หรือเว้นว่างเพื่อใช้ชั่วโมงปัจจุบัน)'
+        required: false
+        default: '7'
 
 permissions:
   contents: write
@@ -31,6 +44,9 @@ jobs:
           BI_ACCESS_TOKEN: ${{ secrets.BI_ACCESS_TOKEN }}
           DINGTALK_WEBHOOK: ${{ secrets.DINGTALK_WEBHOOK }}
           DINGTALK_SECRET: ${{ secrets.DINGTALK_SECRET }}
+          INPUT_DAY1: ${{ github.event.inputs.partition_day1 }}
+          INPUT_DAY2: ${{ github.event.inputs.partition_day2 }}
+          INPUT_REPORT_TIME: ${{ github.event.inputs.report_time }}
         run: |
           python tracker.py
 
