@@ -3,174 +3,281 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lazada Operations Live Monitor (BKKC1)</title>
+  <title>Lazada Operations Analytics & Live Monitor</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style> body { font-family: 'Prompt', sans-serif; } </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen">
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
   <header class="bg-slate-800/80 backdrop-blur border-b border-slate-700/60 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap justify-between items-center gap-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
       <div class="flex items-center gap-3">
         <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
-          <i class="fa-solid fa-truck-fast text-lg text-white"></i>
+          <i class="fa-solid fa-chart-pie text-lg text-white"></i>
         </div>
         <div>
           <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
-            Lazada Live Monitor <span class="bg-blue-500/20 text-blue-400 text-xs px-2 py-0.5 rounded-full border border-blue-500/30">Zone BKKC1</span>
+            Lazada Analytics Platform <span class="bg-blue-500/20 text-blue-400 text-xs px-2 py-0.5 rounded-full border border-blue-500/30">Zone BKKC1</span>
           </h1>
-          <p class="text-xs text-slate-400">ระบบติดตามผลการจัดส่งพัสดุด่วนรายชั่วโมง</p>
+          <p class="text-xs text-slate-400">ระบบติดตามและวิเคราะห์ข้อมูลผลการจัดส่งด่วนรายชั่วโมง (09:00 - 22:00 น.)</p>
         </div>
       </div>
       
-      <div class="flex items-center gap-2 flex-wrap">
-        <!-- Badges ตัวกรอง -->
-        <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
-          <i class="fa-regular fa-calendar text-blue-400"></i>
-          <span class="text-slate-400">วันที่:</span>
-          <span id="badge-date" class="font-mono font-semibold text-blue-300">-</span>
-        </div>
-        <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
-          <i class="fa-regular fa-clock text-amber-400"></i>
-          <span class="text-slate-400">รอบเวลา:</span>
-          <span id="badge-time" class="font-mono font-semibold text-amber-300">-</span>
-        </div>
-        <button onclick="loadData()" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 text-xs shadow">
-          <i class="fa-solid fa-rotate"></i> รีเฟรช
+      <!-- Tab Navigation -->
+      <div class="flex items-center gap-2 bg-slate-900/80 p-1 rounded-xl border border-slate-700">
+        <button id="tab-btn-live" onclick="switchTab('live')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white transition flex items-center gap-1.5 shadow">
+          <i class="fa-solid fa-tower-broadcast"></i> รอบชั่วโมงสด
+        </button>
+        <button id="tab-btn-analytics" onclick="switchTab('analytics')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-chart-line"></i> วิเคราะห์ประวัติย้อนหลัง (Log)
         </button>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-    <!-- บรรทัดบอกเวลาอัปเดตระบบ -->
-    <div class="flex justify-between items-center text-xs text-slate-400 px-1">
-      <div class="flex items-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>ข้อมูลล่าสุดเมื่อ: <strong id="update-time" class="text-slate-200">-</strong></span>
-      </div>
-    </div>
+  <!-- Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 flex-1 w-full">
 
-    <!-- KPI Summary Cards -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
-        <div class="flex justify-between items-start">
+    <!-- ==================== TAB 1: LIVE MONITOR ==================== -->
+    <div id="tab-live" class="space-y-6">
+      <!-- Status Badges -->
+      <div class="flex flex-wrap justify-between items-center gap-3 text-xs bg-slate-800/40 p-3 rounded-xl border border-slate-700/40">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center gap-2 text-emerald-400 font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            อัปเดตล่าสุด: <strong id="update-time" class="text-slate-200">-</strong>
+          </span>
+          <span class="text-slate-600">|</span>
+          <span class="text-slate-400">วันที่: <strong id="badge-date" class="text-blue-300">-</strong></span>
+          <span class="text-slate-600">|</span>
+          <span class="text-slate-400">รอบเวลา: <strong id="badge-time" class="text-amber-300">-</strong> น.</span>
+        </div>
+        <button onclick="loadLiveData()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1 rounded-lg transition flex items-center gap-1">
+          <i class="fa-solid fa-rotate"></i> รีเฟรชสด
+        </button>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">PODOH Success</p>
+              <h3 id="stat-podoh" class="text-3xl font-extrabold text-white mt-1">0.00%</h3>
+            </div>
+            <div class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              <i class="fa-solid fa-chart-line text-lg"></i>
+            </div>
+          </div>
+          <div class="mt-3 w-full bg-slate-700/50 rounded-full h-1.5">
+            <div id="bar-podoh" class="bg-blue-500 h-1.5 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">คงค้าง (On-Hand)</p>
+              <h3 id="stat-oh" class="text-3xl font-extrabold text-amber-400 mt-1">0</h3>
+            </div>
+            <div class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <i class="fa-solid fa-boxes-packing text-lg"></i>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-3">พัสดุค้างส่งทั้งหมดในรอบนี้</p>
+        </div>
+
+        <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">จัดส่งสำเร็จ (POD)</p>
+              <h3 id="stat-pod" class="text-3xl font-extrabold text-emerald-400 mt-1">0</h3>
+            </div>
+            <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <i class="fa-solid fa-circle-check text-lg"></i>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-3">ส่งมอบสำเร็จในวันนี้</p>
+        </div>
+
+        <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">SOP-D</p>
+              <h3 id="stat-sopd" class="text-3xl font-extrabold text-indigo-400 mt-1">0</h3>
+            </div>
+            <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+              <i class="fa-solid fa-bolt text-lg"></i>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-3">พัสดุรอบ SOP-D</p>
+        </div>
+      </div>
+
+      <!-- DC Breakdown Grid -->
+      <div>
+        <h2 class="text-base font-semibold text-white mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-warehouse text-blue-400"></i> ยอดจำแนกรายศูนย์กระจายสินค้า (Distribution Centers)
+        </h2>
+        <div id="dc-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+
+      <!-- Parcels Table -->
+      <div class="bg-slate-800/60 rounded-2xl border border-slate-700/60 overflow-hidden shadow-xl">
+        <div class="p-4 sm:p-5 border-b border-slate-700/60 flex flex-wrap justify-between items-center gap-4">
           <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">PODOH Success</p>
-            <h3 id="stat-podoh" class="text-3xl font-extrabold text-white mt-1">0.00%</h3>
+            <h2 class="text-base font-semibold text-white flex items-center gap-2">
+              <i class="fa-solid fa-barcode text-amber-400"></i> รายการพัสดุคงค้าง (Pending Parcels)
+            </h2>
+            <p class="text-xs text-slate-400">ติดตามสถานะและสาเหตุ DLY แบบเรียลไทม์</p>
           </div>
-          <div class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
-            <i class="fa-solid fa-chart-line text-lg"></i>
-          </div>
-        </div>
-        <div class="mt-3 w-full bg-slate-700/50 rounded-full h-1.5">
-          <div id="bar-podoh" class="bg-blue-500 h-1.5 rounded-full" style="width: 0%"></div>
-        </div>
-      </div>
-
-      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">คงค้าง (On-Hand)</p>
-            <h3 id="stat-oh" class="text-3xl font-extrabold text-amber-400 mt-1">0</h3>
-          </div>
-          <div class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
-            <i class="fa-solid fa-boxes-packing text-lg"></i>
-          </div>
-        </div>
-        <p class="text-xs text-slate-400 mt-3">พัสดุค้างส่งทั้งหมดในรอบนี้</p>
-      </div>
-
-      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">จัดส่งสำเร็จ (POD)</p>
-            <h3 id="stat-pod" class="text-3xl font-extrabold text-emerald-400 mt-1">0</h3>
-          </div>
-          <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-            <i class="fa-solid fa-circle-check text-lg"></i>
-          </div>
-        </div>
-        <p class="text-xs text-slate-400 mt-3">ส่งมอบสำเร็จ</p>
-      </div>
-
-      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">SOP-D Count</p>
-            <h3 id="stat-sopd" class="text-3xl font-extrabold text-indigo-400 mt-1">0</h3>
-          </div>
-          <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-            <i class="fa-solid fa-bolt text-lg"></i>
-          </div>
-        </div>
-        <p class="text-xs text-slate-400 mt-3">พัสดุเข้าตามรอบ SOP-D</p>
-      </div>
-    </div>
-
-    <!-- DC Breakdown Grid -->
-    <div>
-      <h2 class="text-base font-semibold text-white mb-3 flex items-center gap-2">
-        <i class="fa-solid fa-warehouse text-blue-400"></i> ยอดจำแนกรายศูนย์กระจายสินค้า (Distribution Centers)
-      </h2>
-      <div id="dc-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-    </div>
-
-    <!-- Parcels Table -->
-    <div class="bg-slate-800/60 rounded-2xl border border-slate-700/60 overflow-hidden shadow-xl">
-      <div class="p-4 sm:p-5 border-b border-slate-700/60 flex flex-wrap justify-between items-center gap-4">
-        <div>
-          <h2 class="text-base font-semibold text-white flex items-center gap-2">
-            <i class="fa-solid fa-barcode text-amber-400"></i> รายการพัสดุคงค้าง (Pending Parcels)
-          </h2>
-          <p class="text-xs text-slate-400">ติดตามสถานะและสาเหตุ DLY แบบเรียลไทม์</p>
-        </div>
-        <div class="flex items-center gap-2">
           <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
             <input type="text" id="search-input" onkeyup="filterParcels()" placeholder="ค้นหา Waybill / DC..." 
               class="bg-slate-900 border border-slate-700 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 w-48 sm:w-64">
           </div>
         </div>
-      </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs">
-          <thead class="bg-slate-900/60 text-slate-400 uppercase tracking-wider font-semibold border-b border-slate-700/60">
-            <tr>
-              <th class="px-4 py-3">Waybill No</th>
-              <th class="px-4 py-3">DC</th>
-              <th class="px-4 py-3">รอบนำจ่าย</th>
-              <th class="px-4 py-3">เวลาออกคลัง</th>
-              <th class="px-4 py-3">สถานะ</th>
-              <th class="px-4 py-3">สาเหตุตกค้าง (DLY)</th>
-              <th class="px-4 py-3">ประเภทขนส่ง</th>
-            </tr>
-          </thead>
-          <tbody id="parcels-body" class="divide-y divide-slate-700/50">
-            <tr><td colspan="7" class="text-center py-8 text-slate-500">กำลังเชื่อมต่อข้อมูล...</td></tr>
-          </tbody>
-        </table>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900/60 text-slate-400 uppercase tracking-wider font-semibold border-b border-slate-700/60">
+              <tr>
+                <th class="px-4 py-3">Waybill No</th>
+                <th class="px-4 py-3">DC</th>
+                <th class="px-4 py-3">รอบนำจ่าย</th>
+                <th class="px-4 py-3">เวลาออกคลัง</th>
+                <th class="px-4 py-3">สถานะ</th>
+                <th class="px-4 py-3">สาเหตุตกค้าง (DLY)</th>
+                <th class="px-4 py-3">ประเภทขนส่ง</th>
+              </tr>
+            </thead>
+            <tbody id="parcels-body" class="divide-y divide-slate-700/50">
+              <tr><td colspan="7" class="text-center py-8 text-slate-500">กำลังเชื่อมต่อข้อมูล...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+
+    <!-- ==================== TAB 2: ANALYTICS & DAILY LOG ==================== -->
+    <div id="tab-analytics" class="hidden space-y-6">
+      
+      <!-- Metrics Overview for Analyst -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-gradient-to-br from-slate-800 to-slate-800/60 p-5 rounded-2xl border border-slate-700">
+          <p class="text-xs font-semibold text-slate-400 uppercase">ค่าเฉลี่ย PODOH % สะสม</p>
+          <h4 id="stat-avg-podoh" class="text-3xl font-extrabold text-blue-400 mt-2">0.00%</h4>
+          <span class="text-xs text-slate-500 mt-1 block">คำนวณจาก Log ปิดยอดประจำวัน</span>
+        </div>
+        <div class="bg-gradient-to-br from-slate-800 to-slate-800/60 p-5 rounded-2xl border border-slate-700">
+          <p class="text-xs font-semibold text-slate-400 uppercase">ยอดจัดส่งสะสม (Total POD)</p>
+          <h4 id="stat-sum-pod" class="text-3xl font-extrabold text-emerald-400 mt-2">0 ชิ้น</h4>
+          <span class="text-xs text-slate-500 mt-1 block">ยอดจัดส่งสำเร็จรวมในประวัติ</span>
+        </div>
+        <div class="bg-gradient-to-br from-slate-800 to-slate-800/60 p-5 rounded-2xl border border-slate-700">
+          <p class="text-xs font-semibold text-slate-400 uppercase">จำนวนวันที่มีประวัติ Log</p>
+          <h4 id="stat-log-count" class="text-3xl font-extrabold text-amber-400 mt-2">0 วัน</h4>
+          <span class="text-xs text-slate-500 mt-1 block">บันทึกอัตโนมัติทุก 22:00 น.</span>
+        </div>
+      </div>
+
+      <!-- Trend Chart -->
+      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60 shadow-xl">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <h2 class="text-base font-semibold text-white flex items-center gap-2">
+              <i class="fa-solid fa-chart-area text-blue-400"></i> แนวโน้มอัตราความสำเร็จ % PODOH รายวัน
+            </h2>
+            <p class="text-xs text-slate-400">กราฟวิเคราะห์แนวโน้มเปอร์เซ็นต์ปิดวันย้อนหลัง</p>
+          </div>
+        </div>
+        <div class="h-72 w-full">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Daily Log Table -->
+      <div class="bg-slate-800/60 rounded-2xl border border-slate-700/60 overflow-hidden shadow-xl">
+        <div class="p-4 sm:p-5 border-b border-slate-700/60 flex flex-wrap justify-between items-center gap-4">
+          <div>
+            <h2 class="text-base font-semibold text-white flex items-center gap-2">
+              <i class="fa-solid fa-clock-rotate-left text-indigo-400"></i> บันทึก Log ผลการจัดส่งประจำวัน (Daily Closing Log)
+            </h2>
+            <p class="text-xs text-slate-400">ดูย้อนหลังรายวันและรายเดือน (บันทึกอัตโนมัติหลังจบรอบ 22:00 น.)</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="log-search-input" onkeyup="filterDailyLogs()" placeholder="ค้นหาวันที่ เช่น 202609..." 
+              class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 w-44">
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900/60 text-slate-400 uppercase tracking-wider font-semibold border-b border-slate-700/60">
+              <tr>
+                <th class="px-4 py-3">วันที่ (Date)</th>
+                <th class="px-4 py-3">เวลาที่ปิด Log</th>
+                <th class="px-4 py-3">รอบข้อมูล</th>
+                <th class="px-4 py-3">อัตราสำเร็จ (PODOH %)</th>
+                <th class="px-4 py-3">คงค้าง (OH)</th>
+                <th class="px-4 py-3">ส่งสำเร็จ (POD)</th>
+                <th class="px-4 py-3">SOP-D</th>
+                <th class="px-4 py-3">สถานะปิดวัน</th>
+              </tr>
+            </thead>
+            <tbody id="history-body" class="divide-y divide-slate-700/50">
+              <tr><td colspan="8" class="text-center py-8 text-slate-500">กำลังเชื่อมต่อฐานข้อมูล Log...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
   </main>
 
   <script>
     let rawParcels = [];
+    let historyRecords = [];
+    let trendChartInstance = null;
 
-    async function loadData() {
+    function switchTab(tab) {
+      const liveTab = document.getElementById('tab-live');
+      const analyticsTab = document.getElementById('tab-analytics');
+      const btnLive = document.getElementById('tab-btn-live');
+      const btnAnalytics = document.getElementById('tab-btn-analytics');
+
+      if (tab === 'live') {
+        liveTab.classList.remove('hidden');
+        analyticsTab.classList.add('hidden');
+        btnLive.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white transition flex items-center gap-1.5 shadow";
+        btnAnalytics.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition flex items-center gap-1.5";
+      } else {
+        liveTab.classList.add('hidden');
+        analyticsTab.classList.remove('hidden');
+        btnAnalytics.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white transition flex items-center gap-1.5 shadow";
+        btnLive.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition flex items-center gap-1.5";
+        loadAnalyticsData();
+      }
+    }
+
+    // 1. โหลดข้อมูล Live Monitor
+    async function loadLiveData() {
       try {
         const res = await fetch('data/latest.json?t=' + new Date().getTime());
         if (!res.ok) throw new Error();
         const data = await res.json();
-        renderDashboard(data);
+        renderLiveDashboard(data);
       } catch (err) {
-        document.getElementById('update-time').innerText = "รอ Action อัปเดตข้อมูลรอบแรก";
+        document.getElementById('update-time').innerText = "รอการประมวลผลรอบแรก";
       }
     }
 
-    function renderDashboard(data) {
+    function renderLiveDashboard(data) {
       document.getElementById('update-time').innerText = data.updated_at || "-";
       document.getElementById('badge-date').innerText = data.date_range || data.partition_day1 || "-";
       document.getElementById('badge-time').innerText = data.report_time || "-";
@@ -199,8 +306,6 @@
               </div>
             </div>`;
         });
-      } else {
-        dcContainer.innerHTML = '<div class="col-span-full text-slate-500 text-xs py-4 text-center">ไม่มีข้อมูล DC</div>';
       }
 
       rawParcels = data.parcels || [];
@@ -243,8 +348,122 @@
       renderParcelsTable(filtered);
     }
 
-    loadData();
-    setInterval(loadData, 60000);
+    // 2. โหลดและแสดงข้อมูล Data Analytics (Daily Log History)
+    async function loadAnalyticsData() {
+      try {
+        const res = await fetch('data/daily_history.json?t=' + new Date().getTime());
+        if (!res.ok) throw new Error();
+        const historyObj = await res.json();
+        
+        historyRecords = Object.values(historyObj).sort((a, b) => b.date.localeCompare(a.date));
+        renderAnalyticsView(historyRecords);
+      } catch (err) {
+        document.getElementById('history-body').innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-500">ยังไม่มีประวัติ Log ปิดวัน (ระบบจะเริ่มบันทึกหลัง 22:00 น.)</td></tr>`;
+      }
+    }
+
+    function renderAnalyticsView(records) {
+      if (!records || records.length === 0) return;
+
+      // คำนวณสรุปเชิงสถิติ (Analyst Metrics)
+      let totalRate = 0;
+      let totalPod = 0;
+      records.forEach(r => {
+        totalRate += r.podoh_rate || 0;
+        totalPod += r.pod || 0;
+      });
+
+      const avgRate = (totalRate / records.length).toFixed(2);
+      document.getElementById('stat-avg-podoh').innerText = `${avgRate}%`;
+      document.getElementById('stat-sum-pod').innerText = `${totalPod.toLocaleString()} ชิ้น`;
+      document.getElementById('stat-log-count').innerText = `${records.length} วัน`;
+
+      renderHistoryTable(records);
+      renderChart(records);
+    }
+
+    function renderHistoryTable(records) {
+      const tbody = document.getElementById('history-body');
+      tbody.innerHTML = '';
+
+      records.forEach(r => {
+        const isClosedBadge = r.is_day_closed
+          ? `<span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-medium">ปิดยอดวันสมบูรณ์ (22:00)</span>`
+          : `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full font-medium">รอบระหว่างวัน</span>`;
+
+        tbody.innerHTML += `
+          <tr class="hover:bg-slate-700/30 transition">
+            <td class="px-4 py-3 font-mono font-bold text-white">${r.date}</td>
+            <td class="px-4 py-3 text-slate-400 text-[11px]">${r.recorded_at}</td>
+            <td class="px-4 py-3 text-slate-300 font-mono">รอบ ${r.final_hour}:00น.</td>
+            <td class="px-4 py-3 font-bold ${r.podoh_rate >= 90 ? 'text-emerald-400' : 'text-amber-400'}">${r.podoh_rate}%</td>
+            <td class="px-4 py-3 font-semibold text-amber-300">${r.on_hand}</td>
+            <td class="px-4 py-3 font-semibold text-emerald-300">${r.pod}</td>
+            <td class="px-4 py-3 font-semibold text-indigo-300">${r.sopd}</td>
+            <td class="px-4 py-3">${isClosedBadge}</td>
+          </tr>
+        `;
+      });
+    }
+
+    function renderChart(records) {
+      const ctx = document.getElementById('trendChart').getContext('2d');
+      // นำข้อมูลมาเรียงจากอดีตไปหาปัจจุบันสำหรับพล็อตลงกราฟ
+      const chartData = [...records].reverse();
+      const labels = chartData.map(r => r.date);
+      const rates = chartData.map(r => r.podoh_rate);
+
+      if (trendChartInstance) {
+        trendChartInstance.destroy();
+      }
+
+      trendChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'อัตราความสำเร็จ % PODOH',
+            data: rates,
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            fill: true,
+            tension: 0.35,
+            borderWidth: 2.5,
+            pointBackgroundColor: '#60a5fa',
+            pointRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { color: '#94a3b8', callback: v => v + '%' }
+            },
+            x: {
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { color: '#94a3b8' }
+            }
+          },
+          plugins: {
+            legend: { labels: { color: '#e2e8f0' } }
+          }
+        }
+      });
+    }
+
+    function filterDailyLogs() {
+      const query = document.getElementById('log-search-input').value.trim();
+      const filtered = historyRecords.filter(r => r.date.includes(query));
+      renderHistoryTable(filtered);
+    }
+
+    // Auto-refresh หน้า Live ทุก 60 วินาที
+    loadLiveData();
+    setInterval(loadLiveData, 60000);
   </script>
 </body>
 </html>
