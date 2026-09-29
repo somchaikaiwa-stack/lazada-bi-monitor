@@ -20,6 +20,7 @@ CUSTOM_DAY2 = os.getenv("CUSTOM_DAY2", "").strip()
 CUSTOM_HOUR = os.getenv("CUSTOM_HOUR", "").strip()
 
 API_URL = "https://bi.th.kex-express.com/cdbi-ext/widget/queryData"
+WEB_URL = "https://somchaikaiwa-stack.github.io/lazada-bi-monitor/"
 
 def get_bkk_now():
     tz = pytz.timezone('Asia/Bangkok')
@@ -38,8 +39,7 @@ def send_dingtalk_message(title, markdown_text):
         timestamp = str(round(time.time() * 1000))
         secret_enc = DINGTALK_SECRET.encode('utf-8')
         string_to_sign = f'{timestamp}\n{DINGTALK_SECRET}'
-        string_to_sign_enc = string_to_sign.encode('utf-8')
-        hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
+        hmac_code = hmac.new(secret_enc, string_to_sign.encode('utf-8'), digestmod=hashlib.sha256).digest()
         sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
         url = f"{url}&timestamp={timestamp}&sign={sign}"
 
@@ -115,7 +115,7 @@ def fetch_data_pipeline(day1, day2, formatted_time, clean_time, zone="BKKC1"):
     dvl_rows = query_widget("c5846544c1874d6fb5ec8986feff66ff", "9.4) Delivery Success (Lazada)-DVL", day1, day2, formatted_time, zone) or []
     pod_rows = query_widget("06afd1a5435945ce8164ee720dac5ff3", "9.5) Delivery Success (Lazada)-POD", day1, day2, formatted_time, zone) or []
     dc_rows = query_widget("c110b81a94a54e1f983ea5e946fbc9ca", "9.8) Delivery Success (Lazada)-DC Lazada Performance", day1, day2, formatted_time, zone) or []
-    all_con_rows = query_widget("e65fea3ad1d44702b03e406ada8c0c35", "9.9) Delivery Success (Lazada)-all con", day1, day2, formatted_time, zone, page_size=200) or []
+    all_con_rows = query_widget("e65fea3ad1d44702b03e406ada8c0c35", "9.9) Delivery Success (Lazada)-all con", day1, day2, formatted_time, zone, page_size=300) or []
 
     try:
         podoh_val = float(podoh_rows[0][0]) * 100 if podoh_rows and podoh_rows[0] else 0.0
@@ -175,7 +175,6 @@ def fetch_data_pipeline(day1, day2, formatted_time, clean_time, zone="BKKC1"):
     return True, result_payload
 
 def update_daily_history_log(day_str, clean_time, display_time, result_payload):
-    """บันทึกข้อมูลย้อนหลังรายวัน/รายเดือนเพื่อใช้ทำ Analytics Dashboard"""
     os.makedirs("data", exist_ok=True)
     history_file = "data/daily_history.json"
     
@@ -188,7 +187,7 @@ def update_daily_history_log(day_str, clean_time, display_time, result_payload):
             history_data = {}
 
     summary = result_payload["summary"]
-    is_closing_hour = (str(clean_time) == "22")
+    is_closing_hour = (str(clean_time) == "22") or (summary["on_hand"] == 0)
 
     entry = {
         "date": day_str,
@@ -202,13 +201,10 @@ def update_daily_history_log(day_str, clean_time, display_time, result_payload):
         "dvl": summary["dvl"],
         "dc_list": result_payload["dc_list"]
     }
-
-    # เก็บประวัติแยกตามวัน
     history_data[day_str] = entry
 
     with open(history_file, "w", encoding="utf-8") as f:
         json.dump(history_data, f, ensure_ascii=False, indent=2)
-    print(f"-> อัปเดตประวัติรายวัน data/daily_history.json เรียบร้อย (Closing: {is_closing_hour})")
 
 def save_and_notify(result_payload, day1, day2, formatted_time, clean_time, display_time, zone="BKKC1"):
     os.makedirs("data", exist_ok=True)
@@ -225,16 +221,21 @@ def save_and_notify(result_payload, day1, day2, formatted_time, clean_time, disp
 
     with open("data/latest.json", "w", encoding="utf-8") as f:
         json.dump(web_payload, f, ensure_ascii=False, indent=2)
-    print("-> บันทึกไฟล์ data/latest.json เรียบร้อยแล้ว")
 
-    # บันทึกลง Log ประวัติศาสตร์
     update_daily_history_log(day1, clean_time, display_time, result_payload)
 
-    # ส่ง DingTalk
     summary = result_payload["summary"]
-    closing_tag = " [🌙 สรุปปิดยอดประจำวัน]" if str(clean_time) == "22" else ""
+    is_all_pod = (summary["on_hand"] == 0)
+    
+    if is_all_pod:
+        title_tag = " [🚀 จัดส่งสำเร็จครบถ้วน 100%]"
+    elif str(clean_time) == "22":
+        title_tag = " [🌙 สรุปปิดยอดประจำวัน]"
+    else:
+        title_tag = ""
+
     lines = [
-        f"### 📦 รายงานสถานะจัดส่ง Lazada ({zone}){closing_tag}",
+        f"### 📦 รายงานสถานะจัดส่ง Lazada ({zone}){title_tag}",
         f"**รอบเวลา:** `{clean_time}:00 น.` (ข้อมูลรอบ {formatted_time})",
         f"**วันที่ค้นหา:** `{day1}` | **เวลาที่ส่ง:** {display_time}",
         f"---",
@@ -245,10 +246,38 @@ def save_and_notify(result_payload, day1, day2, formatted_time, clean_time, disp
         f"---",
         f"#### 🏢 ยอดแยกรายสาขา (DC):"
     ]
+    
     for dc in result_payload["dc_list"]:
         lines.append(f"> **DC {dc['outlet_code']}:** ค้าง `{dc['on_hand']}` | POD `{dc['pod']}` | สำเร็จ `{dc['success_rate']}%`")
 
-    send_dingtalk_message(f"รายงาน Lazada {zone} ({clean_time}:00น.){closing_tag}", "\n\n".join(lines))
+    # จัดกลุ่มเลขพัสดุ (Waybill) แยกตามสาขา DC เฉพาะตัวที่ยังค้างอยู่
+    parcels = result_payload["parcels"]
+    if parcels:
+        lines.append("---")
+        lines.append("#### 📋 รายการเลขพัสดุตกค้างแยกตามสาขา:")
+        dc_group = {}
+        for p in parcels:
+            dc_code = p["outlet_code"] or "UNKNOWN"
+            if dc_code not in dc_group:
+                dc_group[dc_code] = []
+            dc_group[dc_code].append(p)
+
+        for dc_code, p_list in dc_group.items():
+            lines.append(f"> **สาขา {dc_code} ({len(p_list)} ชิ้น):**")
+            for p in p_list[:8]:  # แสดงสูงสุด 8 ชิ้นต่อ DC
+                dly = f" [{p['dly_code']}]" if p['dly_code'] and p['dly_code'] != '-' else ""
+                lines.append(f">   `{p['waybill_no']}` - {p['status']}{dly}")
+            if len(p_list) > 8:
+                lines.append(f">   *...และอีก {len(p_list)-8} ชิ้น*")
+    else:
+        lines.append("---")
+        lines.append("🎉 **ยอดพัสดุทั้งหมดถูกจัดส่งสำเร็จ (POD) เรียบร้อยแล้ว ไม่มีค้างส่ง!**")
+
+    # ข้อความต่อท้ายพร้อมลิงก์เว็บ
+    lines.append("---")
+    lines.append(f"หากต้องการดูรายละเอียดเพิ่มเติมกดเข้าเว็บนี้\n{WEB_URL}")
+
+    send_dingtalk_message(f"รายงาน Lazada {zone} ({clean_time}:00น.)", "\n\n".join(lines))
 
 def main():
     now_bkk = get_bkk_now()
@@ -256,14 +285,15 @@ def main():
     zone = "BKKC1"
 
     if RUN_MODE == "test_bot_only":
-        print("[MODE] กำลังทดสอบส่งข้อความเข้า DingTalk Webhook...")
+        print("[MODE] กำลังทดสอบส่งข้อความเข้า DingTalk...")
         test_msg = (
             f"### 🔔 ทดสอบการเชื่อมต่อ DingTalk Bot สำเร็จ\n"
             f"- **ระบบ:** Lazada Operations Live Monitor\n"
             f"- **เวลาทดสอบ:** {display_time}\n"
-            f"- **สถานะ Webhook:** เชื่อมต่อสำเร็จปกติ 100%"
+            f"- **สถานะ Webhook:** เชื่อมต่อสำเร็จปกติ\n\n"
+            f"หากต้องการดูรายละเอียดเพิ่มเติมกดเข้าเว็บนี้\n{WEB_URL}"
         )
-        success = send_dingtalk_message("ทดสอบบอท DingTalk", test_msg)
+        send_dingtalk_message("ทดสอบบอท DingTalk", test_msg)
         return
 
     if RUN_MODE == "manual_custom":
@@ -294,23 +324,23 @@ def main():
     attempt = 1
     while attempt <= max_attempts:
         current_time = get_bkk_now()
-        print(f"[{current_time.strftime('%H:%M:%S')}] พยายามดึงข้อมูลครั้งที่ {attempt}/{max_attempts}...")
-        
         ok, result = fetch_data_pipeline(day1, day2, formatted_time, clean_time, zone)
+        
         if ok:
-            print("-> ดึงข้อมูลสำเร็จ!")
             save_and_notify(result, day1, day2, formatted_time, clean_time, current_time.strftime("%Y-%m-%d %H:%M:%S"), zone)
+            
+            # Smart Exit: ถ้าส่งมอบหมดแล้ว (On-Hand เป็น 0) สิ้นสุดการรายงานของวันนั้นล่วงหน้า
+            if result["summary"]["on_hand"] == 0:
+                print("-> พัสดุถูกจัดส่งสำเร็จครบ 100% แล้ว สิ้นสุดการรายงานของวันนี้ล่วงหน้า")
+                return
             return
 
         if current_time.minute >= 40 and current_time.hour != now_bkk.hour:
             print("-> ใกล้ถึงรอบเวลาใหม่แล้ว ข้ามรอบนี้เพื่อให้รอบถัดไปทำงานแทน")
             break
 
-        print(f"-> ดึงข้อมูลไม่สำเร็จหรือข้อมูลยังไม่ออก รอ {retry_delay_sec//60} นาทีเพื่อลองใหม่...")
         time.sleep(retry_delay_sec)
         attempt += 1
-
-    print("[AUTO] สิ้นสุดการทำงานของรอบนี้ ข้ามไปรันรอบถัดไป")
 
 if __name__ == "__main__":
     main()
