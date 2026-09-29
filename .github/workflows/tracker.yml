@@ -2,32 +2,31 @@ name: Hourly Logistics BI Tracker & Web Update
 
 on:
   schedule:
-    # 02:45 - 15:45 UTC = 09:45 - 22:45 เวลาไทย (UTC+7)
     - cron: '45 2-15 * * *'
   workflow_dispatch:
     inputs:
       run_mode:
-        description: 'เลือกโหมดการทำงาน'
+        description: 'เลือกโหมดการทำงาน (Mode)'
         required: true
         default: 'auto_hourly'
         type: choice
         options:
-          - 'auto_hourly'
-          - 'test_bot_only'
-          - 'test_full_flow'
-          - 'manual_custom'
+          - 'auto_hourly'          # รันอัตโนมัติประจำชั่วโมง (09:00 - 22:00)
+          - 'manual_custom'        # ระบุวันที่และรอบเวลาที่ต้องการทดสอบเอง
+          - 'test_bot_only'        # ทดสอบส่งข้อความเข้า DingTalk
+          - 'test_full_flow'       # ทดสอบดึงข้อมูลรอบปัจจุบันทันที
       custom_day1:
-        description: '[เฉพาะโหมด manual_custom] วันที่เริ่มต้น (YYYYMMDD)'
+        description: '[เฉพาะ manual_custom] วันที่เริ่มต้น (เช่น วันนี้ หรือระบุ YYYYMMDD)'
         required: false
         default: ''
       custom_day2:
-        description: '[เฉพาะโหมด manual_custom] วันที่สิ้นสุด (YYYYMMDD)'
+        description: '[เฉพาะ manual_custom] วันที่สิ้นสุด (ถ้าวันเดียว ไม่ต้องกรอก)'
         required: false
         default: ''
       custom_hour:
-        description: '[เฉพาะโหมด manual_custom] รอบเวลา (เช่น 7, 8, 22)'
+        description: '[เฉพาะ manual_custom] เลือกรอบเวลา (เช่น 7, 8, 9, 10 ... 22)'
         required: false
-        default: ''
+        default: '9'
 
 permissions:
   contents: write
@@ -65,9 +64,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # ตรวจสอบว่ามีไฟล์ไหนอยู่บ้าง ค่อยสั่ง add ป้องกัน Error 128
           [ -f "data/latest.json" ] && git add data/latest.json
           [ -f "data/daily_history.json" ] && git add data/daily_history.json
-          
           git diff --quiet && git diff --staged --quiet || (git commit -m "Auto update logistics data & daily log [skip ci]" && git push)
