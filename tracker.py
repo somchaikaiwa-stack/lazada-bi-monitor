@@ -14,14 +14,32 @@ BI_TOKEN = os.getenv("BI_ACCESS_TOKEN", "").strip()
 DINGTALK_WEBHOOK = os.getenv("DINGTALK_WEBHOOK", "").strip()
 DINGTALK_SECRET = os.getenv("DINGTALK_SECRET", "").strip()
 
+# อ่านค่าตัวกรองที่กำหนดเองจาก GitHub Actions (ถ้ามี)
+INPUT_DAY1 = os.getenv("INPUT_DAY1", "").strip()
+INPUT_DAY2 = os.getenv("INPUT_DAY2", "").strip()
+INPUT_REPORT_TIME = os.getenv("INPUT_REPORT_TIME", "").strip()
+
 API_URL = "https://bi.th.kex-express.com/cdbi-ext/widget/queryData"
 
-def get_bkk_date_and_hour():
+def get_filter_params():
     tz = pytz.timezone('Asia/Bangkok')
     now = datetime.datetime.now(tz)
-    return now.strftime("%Y%m%d"), str(now.hour), now.strftime("%Y-%m-%d %H:%M:%S")
+    default_today = now.strftime("%Y%m%d")
+    default_hour = str(now.hour)
+    display_time = now.strftime("%Y-%m-%d %H:%M:%S")
 
-def query_widget(widget_id, widget_name, date_str, hour_str, zone="BKKC1", page_size=100):
+    # กำหนด Partition_Day1 และ Day2
+    day1 = INPUT_DAY1 if INPUT_DAY1 else default_today
+    day2 = INPUT_DAY2 if INPUT_DAY2 else day1
+
+    # จัดการรูปแบบ Report_time_Choose_lasted_time ให้เป็น "[X]" เสมอ
+    raw_time = INPUT_REPORT_TIME if INPUT_REPORT_TIME else default_hour
+    clean_time = raw_time.strip("[]'\" ")
+    formatted_time = f"[{clean_time}]"
+
+    return day1, day2, formatted_time, clean_time, display_time
+
+def query_widget(widget_id, widget_name, day1, day2, time_filter_val, zone="BKKC1", page_size=100):
     headers = {
         "accept": "application/json, text/plain, */*",
         "accesstoken": BI_TOKEN,
@@ -44,9 +62,9 @@ def query_widget(widget_id, widget_name, date_str, hour_str, zone="BKKC1", page_
             }
         ],
         "params": [
-            {"name": "Partition_Day1", "values": date_str},
-            {"name": "Partition_Day2", "values": date_str},
-            {"name": "Report_time_Choose_lasted_time", "values": f"[{hour_str}]"}
+            {"name": "Partition_Day1", "values": day1},
+            {"name": "Partition_Day2", "values": day2},
+            {"name": "Report_time_Choose_lasted_time", "values": time_filter_val}
         ],
         "drillFields": [],
         "purge": 0,
@@ -77,8 +95,7 @@ def send_dingtalk_message(title, markdown_text):
         timestamp = str(round(time.time() * 1000))
         secret_enc = DINGTALK_SECRET.encode('utf-8')
         string_to_sign = f'{timestamp}\n{DINGTALK_SECRET}'
-        string_to_sign_enc = string_to_sign.encode('utf-8')
-        hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
+        hmac_code = hmac.new(secret_enc, string_to_sign.encode('utf-8'), digestmod=hashlib.sha256).digest()
         sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
         url = f"{url}&timestamp={timestamp}&sign={sign}"
 
@@ -96,16 +113,21 @@ def main():
         print("ERROR: BI_ACCESS_TOKEN is missing!")
         return
 
-    date_str, hour_str, display_time = get_bkk_date_and_hour()
+    day1, day2, formatted_time, clean_time, display_time = get_filter_params()
     zone = "BKKC1"
 
-    podoh_rows = query_widget("cab3376f0a2d403992774991eb4809af", "9.1) Delivery Success (Lazada)-PODOH", date_str, hour_str, zone)
-    oh_rows = query_widget("7581c9f7d34444779cec7b7627029b74", "9.2) Delivery Success (Lazada)-OH", date_str, hour_str, zone)
-    sopd_rows = query_widget("2d6b5a21376e44a48a7c331466eb3288", "9.3) Delivery Success (Lazada)-SOP-D", date_str, hour_str, zone)
-    dvl_rows = query_widget("c5846544c1874d6fb5ec8986feff66ff", "9.4) Delivery Success (Lazada)-DVL", date_str, hour_str, zone)
-    pod_rows = query_widget("06afd1a5435945ce8164ee720dac5ff3", "9.5) Delivery Success (Lazada)-POD", date_str, hour_str, zone)
-    dc_rows = query_widget("c110b81a94a54e1f983ea5e946fbc9ca", "9.8) Delivery Success (Lazada)-DC Lazada Performance", date_str, hour_str, zone)
-    all_con_rows = query_widget("e65fea3ad1d44702b03e406ada8c0c35", "9.9) Delivery Success (Lazada)-all con", date_str, hour_str, zone, page_size=200)
+    print(f"--- Filters Applied ---")
+    print(f"Partition_Day1: {day1}")
+    print(f"Partition_Day2: {day2}")
+    print(f"Report_time: {formatted_time}")
+
+    podoh_rows = query_widget("cab3376f0a2d403992774991eb4809af", "9.1) Delivery Success (Lazada)-PODOH", day1, day2, formatted_time, zone)
+    oh_rows = query_widget("7581c9f7d34444779cec7b7627029b74", "9.2) Delivery Success (Lazada)-OH", day1, day2, formatted_time, zone)
+    sopd_rows = query_widget("2d6b5a21376e44a48a7c331466eb3288", "9.3) Delivery Success (Lazada)-SOP-D", day1, day2, formatted_time, zone)
+    dvl_rows = query_widget("c5846544c1874d6fb5ec8986feff66ff", "9.4) Delivery Success (Lazada)-DVL", day1, day2, formatted_time, zone)
+    pod_rows = query_widget("06afd1a5435945ce8164ee720dac5ff3", "9.5) Delivery Success (Lazada)-POD", day1, day2, formatted_time, zone)
+    dc_rows = query_widget("c110b81a94a54e1f983ea5e946fbc9ca", "9.8) Delivery Success (Lazada)-DC Lazada Performance", day1, day2, formatted_time, zone)
+    all_con_rows = query_widget("e65fea3ad1d44702b03e406ada8c0c35", "9.9) Delivery Success (Lazada)-all con", day1, day2, formatted_time, zone, page_size=200)
 
     try:
         podoh_val = float(podoh_rows[0][0]) * 100 if podoh_rows and podoh_rows[0] else 0.0
@@ -156,8 +178,11 @@ def main():
     os.makedirs("data", exist_ok=True)
     web_payload = {
         "updated_at": display_time,
-        "date": date_str,
-        "hour": hour_str,
+        "date_range": f"{day1} - {day2}" if day1 != day2 else day1,
+        "partition_day1": day1,
+        "partition_day2": day2,
+        "report_time": formatted_time,
+        "report_hour": clean_time,
         "zone": zone,
         "summary": {
             "podoh_rate": round(podoh_val, 2),
@@ -175,6 +200,7 @@ def main():
 
     lines = [
         f"### 📦 รายงานสถานะจัดส่ง Lazada ({zone})",
+        f"**ช่วงวันที่:** `{day1}` ถึง `{day2}` | **รอบเวลา:** `{formatted_time}` น.",
         f"**อัปเดตเมื่อ:** {display_time}",
         f"---",
         f"- **อัตราสำเร็จ (PODOH):** `{podoh_val:.2f}%`",
@@ -187,7 +213,7 @@ def main():
     for dc in dc_data:
         lines.append(f"> **DC {dc['outlet_code']}:** ค้าง `{dc['on_hand']}` | POD `{dc['pod']}` | สำเร็จ `{dc['success_rate']}%`")
 
-    send_dingtalk_message(f"รายงาน Lazada {zone} ({display_time})", "\n\n".join(lines))
+    send_dingtalk_message(f"รายงาน Lazada {zone} ({day1} รอบ {clean_time}น.)", "\n\n".join(lines))
 
 if __name__ == "__main__":
     main()
