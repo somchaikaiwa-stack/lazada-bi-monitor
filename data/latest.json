@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-09-30 01:26:14",
+  "updated_at": "2026-09-30 01:32:07",
   "date_range": "20260929",
   "partition_day1": "20260929",
   "partition_day2": "20260929",
-  "report_time": "[17]",
-  "report_hour": "17",
+  "report_time": "[20]",
+  "report_hour": "20",
   "zone": "BKKC1",
   "summary": {
     "podoh_rate": 50.0,
@@ -25,16 +25,6 @@
       "success_rate": 0.0
     },
     {
-      "outlet_code": "PY2",
-      "region_code": "BKKC1",
-      "area_code": "BKKC102",
-      "on_hand": 2,
-      "sopd": 2,
-      "dvl": 2,
-      "pod": 2,
-      "success_rate": 100.0
-    },
-    {
       "outlet_code": "RM6",
       "region_code": "BKKC1",
       "area_code": "BKKC102",
@@ -43,6 +33,16 @@
       "dvl": 1,
       "pod": 1,
       "success_rate": 50.0
+    },
+    {
+      "outlet_code": "PY2",
+      "region_code": "BKKC1",
+      "area_code": "BKKC102",
+      "on_hand": 2,
+      "sopd": 2,
+      "dvl": 2,
+      "pod": 2,
+      "success_rate": 100.0
     }
   ],
   "parcels": [
