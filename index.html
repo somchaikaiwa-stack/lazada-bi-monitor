@@ -24,13 +24,19 @@
         </div>
       </div>
       
-      <div class="flex items-center gap-3 text-xs">
-        <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-2">
-          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="text-slate-400">อัปเดตล่าสุด:</span>
-          <span id="update-time" class="font-semibold text-emerald-400">กำลังโหลด...</span>
+      <div class="flex items-center gap-2 flex-wrap">
+        <!-- Badges ตัวกรอง -->
+        <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
+          <i class="fa-regular fa-calendar text-blue-400"></i>
+          <span class="text-slate-400">วันที่:</span>
+          <span id="badge-date" class="font-mono font-semibold text-blue-300">-</span>
         </div>
-        <button onclick="loadData()" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow">
+        <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
+          <i class="fa-regular fa-clock text-amber-400"></i>
+          <span class="text-slate-400">รอบเวลา:</span>
+          <span id="badge-time" class="font-mono font-semibold text-amber-300">-</span>
+        </div>
+        <button onclick="loadData()" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 text-xs shadow">
           <i class="fa-solid fa-rotate"></i> รีเฟรช
         </button>
       </div>
@@ -38,8 +44,17 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    <!-- บรรทัดบอกเวลาอัปเดตระบบ -->
+    <div class="flex justify-between items-center text-xs text-slate-400 px-1">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>ข้อมูลล่าสุดเมื่อ: <strong id="update-time" class="text-slate-200">-</strong></span>
+      </div>
+    </div>
+
+    <!-- KPI Summary Cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60 relative overflow-hidden">
+      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
         <div class="flex justify-between items-start">
           <div>
             <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">PODOH Success</p>
@@ -54,7 +69,7 @@
         </div>
       </div>
 
-      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60 relative overflow-hidden">
+      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
         <div class="flex justify-between items-start">
           <div>
             <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">คงค้าง (On-Hand)</p>
@@ -64,10 +79,10 @@
             <i class="fa-solid fa-boxes-packing text-lg"></i>
           </div>
         </div>
-        <p class="text-xs text-slate-400 mt-3">พัสดุค้างส่งทั้งหมดในระบบ</p>
+        <p class="text-xs text-slate-400 mt-3">พัสดุค้างส่งทั้งหมดในรอบนี้</p>
       </div>
 
-      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60 relative overflow-hidden">
+      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
         <div class="flex justify-between items-start">
           <div>
             <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">จัดส่งสำเร็จ (POD)</p>
@@ -77,10 +92,10 @@
             <i class="fa-solid fa-circle-check text-lg"></i>
           </div>
         </div>
-        <p class="text-xs text-slate-400 mt-3">ส่งมอบสำเร็จในวันนี้</p>
+        <p class="text-xs text-slate-400 mt-3">ส่งมอบสำเร็จ</p>
       </div>
 
-      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60 relative overflow-hidden">
+      <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/60">
         <div class="flex justify-between items-start">
           <div>
             <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">SOP-D Count</p>
@@ -94,6 +109,7 @@
       </div>
     </div>
 
+    <!-- DC Breakdown Grid -->
     <div>
       <h2 class="text-base font-semibold text-white mb-3 flex items-center gap-2">
         <i class="fa-solid fa-warehouse text-blue-400"></i> ยอดจำแนกรายศูนย์กระจายสินค้า (Distribution Centers)
@@ -101,6 +117,7 @@
       <div id="dc-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
 
+    <!-- Parcels Table -->
     <div class="bg-slate-800/60 rounded-2xl border border-slate-700/60 overflow-hidden shadow-xl">
       <div class="p-4 sm:p-5 border-b border-slate-700/60 flex flex-wrap justify-between items-center gap-4">
         <div>
@@ -124,7 +141,7 @@
             <tr>
               <th class="px-4 py-3">Waybill No</th>
               <th class="px-4 py-3">DC</th>
-              <th class="px-4 py-3">รอบนำจ่าย (Shift)</th>
+              <th class="px-4 py-3">รอบนำจ่าย</th>
               <th class="px-4 py-3">เวลาออกคลัง</th>
               <th class="px-4 py-3">สถานะ</th>
               <th class="px-4 py-3">สาเหตุตกค้าง (DLY)</th>
@@ -155,6 +172,9 @@
 
     function renderDashboard(data) {
       document.getElementById('update-time').innerText = data.updated_at || "-";
+      document.getElementById('badge-date').innerText = data.date_range || data.partition_day1 || "-";
+      document.getElementById('badge-time').innerText = data.report_time || "-";
+
       const summary = data.summary || {};
       document.getElementById('stat-podoh').innerText = (summary.podoh_rate || 0).toFixed(2) + "%";
       document.getElementById('bar-podoh').style.width = Math.min(summary.podoh_rate || 0, 100) + "%";
@@ -179,6 +199,8 @@
               </div>
             </div>`;
         });
+      } else {
+        dcContainer.innerHTML = '<div class="col-span-full text-slate-500 text-xs py-4 text-center">ไม่มีข้อมูล DC</div>';
       }
 
       rawParcels = data.parcels || [];
