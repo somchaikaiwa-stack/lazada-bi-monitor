@@ -14,30 +14,48 @@ BI_TOKEN = os.getenv("BI_ACCESS_TOKEN", "").strip()
 DINGTALK_WEBHOOK = os.getenv("DINGTALK_WEBHOOK", "").strip()
 DINGTALK_SECRET = os.getenv("DINGTALK_SECRET", "").strip()
 
-# อ่านค่าตัวกรองที่กำหนดเองจาก GitHub Actions (ถ้ามี)
-INPUT_DAY1 = os.getenv("INPUT_DAY1", "").strip()
-INPUT_DAY2 = os.getenv("INPUT_DAY2", "").strip()
-INPUT_REPORT_TIME = os.getenv("INPUT_REPORT_TIME", "").strip()
+RUN_MODE = os.getenv("RUN_MODE", "auto_hourly").strip()
+CUSTOM_DAY1 = os.getenv("CUSTOM_DAY1", "").strip()
+CUSTOM_DAY2 = os.getenv("CUSTOM_DAY2", "").strip()
+CUSTOM_HOUR = os.getenv("CUSTOM_HOUR", "").strip()
 
 API_URL = "https://bi.th.kex-express.com/cdbi-ext/widget/queryData"
 
-def get_filter_params():
+def get_bkk_now():
     tz = pytz.timezone('Asia/Bangkok')
-    now = datetime.datetime.now(tz)
-    default_today = now.strftime("%Y%m%d")
-    default_hour = str(now.hour)
-    display_time = now.strftime("%Y-%m-%d %H:%M:%S")
+    return datetime.datetime.now(tz)
 
-    # กำหนด Partition_Day1 และ Day2
-    day1 = INPUT_DAY1 if INPUT_DAY1 else default_today
-    day2 = INPUT_DAY2 if INPUT_DAY2 else day1
+def format_hour(hour_val):
+    clean = str(hour_val).strip("[]'\" ")
+    return f"[{clean}]", clean
 
-    # จัดการรูปแบบ Report_time_Choose_lasted_time ให้เป็น "[X]" เสมอ
-    raw_time = INPUT_REPORT_TIME if INPUT_REPORT_TIME else default_hour
-    clean_time = raw_time.strip("[]'\" ")
-    formatted_time = f"[{clean_time}]"
+def send_dingtalk_message(title, markdown_text):
+    if not DINGTALK_WEBHOOK:
+        return False
 
-    return day1, day2, formatted_time, clean_time, display_time
+    url = DINGTALK_WEBHOOK
+    if DINGTALK_SECRET and DINGTALK_SECRET.lower() != "none":
+        timestamp = str(round(time.time() * 1000))
+        secret_enc = DINGTALK_SECRET.encode('utf-8')
+        string_to_sign = f'{timestamp}\n{DINGTALK_SECRET}'
+        string_to_sign_enc = string_to_sign.encode('utf-8')
+        hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
+        sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
+        url = f"{url}&timestamp={timestamp}&sign={sign}"
+
+    body = {
+        "msgtype": "markdown",
+        "markdown": {
+            "title": title,
+            "text": markdown_text
+        }
+    }
+    try:
+        res = requests.post(url, json=body, timeout=10)
+        return res.status_code == 200
+    except Exception as e:
+        print(f"[DingTalk Error] {e}")
+        return False
 
 def query_widget(widget_id, widget_name, day1, day2, time_filter_val, zone="BKKC1", page_size=100):
     headers = {
@@ -81,53 +99,23 @@ def query_widget(widget_id, widget_name, day1, day2, time_filter_val, zone="BKKC
         data = res.json()
         if data.get("ok"):
             return data.get("data", {}).get("rows", [])
-        return []
+        return None
     except Exception as e:
-        print(f"Error query {widget_name}: {e}")
-        return []
+        print(f"[Query Error] {widget_name}: {e}")
+        return None
 
-def send_dingtalk_message(title, markdown_text):
-    if not DINGTALK_WEBHOOK:
-        return
-
-    url = DINGTALK_WEBHOOK
-    if DINGTALK_SECRET and DINGTALK_SECRET != "none":
-        timestamp = str(round(time.time() * 1000))
-        secret_enc = DINGTALK_SECRET.encode('utf-8')
-        string_to_sign = f'{timestamp}\n{DINGTALK_SECRET}'
-        hmac_code = hmac.new(secret_enc, string_to_sign.encode('utf-8'), digestmod=hashlib.sha256).digest()
-        sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
-        url = f"{url}&timestamp={timestamp}&sign={sign}"
-
-    body = {
-        "msgtype": "markdown",
-        "markdown": {
-            "title": title,
-            "text": markdown_text
-        }
-    }
-    requests.post(url, json=body)
-
-def main():
-    if not BI_TOKEN:
-        print("ERROR: BI_ACCESS_TOKEN is missing!")
-        return
-
-    day1, day2, formatted_time, clean_time, display_time = get_filter_params()
-    zone = "BKKC1"
-
-    print(f"--- Filters Applied ---")
-    print(f"Partition_Day1: {day1}")
-    print(f"Partition_Day2: {day2}")
-    print(f"Report_time: {formatted_time}")
-
+def fetch_data_pipeline(day1, day2, formatted_time, clean_time, zone="BKKC1"):
     podoh_rows = query_widget("cab3376f0a2d403992774991eb4809af", "9.1) Delivery Success (Lazada)-PODOH", day1, day2, formatted_time, zone)
     oh_rows = query_widget("7581c9f7d34444779cec7b7627029b74", "9.2) Delivery Success (Lazada)-OH", day1, day2, formatted_time, zone)
-    sopd_rows = query_widget("2d6b5a21376e44a48a7c331466eb3288", "9.3) Delivery Success (Lazada)-SOP-D", day1, day2, formatted_time, zone)
-    dvl_rows = query_widget("c5846544c1874d6fb5ec8986feff66ff", "9.4) Delivery Success (Lazada)-DVL", day1, day2, formatted_time, zone)
-    pod_rows = query_widget("06afd1a5435945ce8164ee720dac5ff3", "9.5) Delivery Success (Lazada)-POD", day1, day2, formatted_time, zone)
-    dc_rows = query_widget("c110b81a94a54e1f983ea5e946fbc9ca", "9.8) Delivery Success (Lazada)-DC Lazada Performance", day1, day2, formatted_time, zone)
-    all_con_rows = query_widget("e65fea3ad1d44702b03e406ada8c0c35", "9.9) Delivery Success (Lazada)-all con", day1, day2, formatted_time, zone, page_size=200)
+    
+    if podoh_rows is None or oh_rows is None:
+        return False, None
+
+    sopd_rows = query_widget("2d6b5a21376e44a48a7c331466eb3288", "9.3) Delivery Success (Lazada)-SOP-D", day1, day2, formatted_time, zone) or []
+    dvl_rows = query_widget("c5846544c1874d6fb5ec8986feff66ff", "9.4) Delivery Success (Lazada)-DVL", day1, day2, formatted_time, zone) or []
+    pod_rows = query_widget("06afd1a5435945ce8164ee720dac5ff3", "9.5) Delivery Success (Lazada)-POD", day1, day2, formatted_time, zone) or []
+    dc_rows = query_widget("c110b81a94a54e1f983ea5e946fbc9ca", "9.8) Delivery Success (Lazada)-DC Lazada Performance", day1, day2, formatted_time, zone) or []
+    all_con_rows = query_widget("e65fea3ad1d44702b03e406ada8c0c35", "9.9) Delivery Success (Lazada)-all con", day1, day2, formatted_time, zone, page_size=200) or []
 
     try:
         podoh_val = float(podoh_rows[0][0]) * 100 if podoh_rows and podoh_rows[0] else 0.0
@@ -140,50 +128,40 @@ def main():
     total_pod = int(pod_rows[0][0]) if pod_rows and pod_rows[0] else 0
 
     dc_data = []
-    if dc_rows:
-        for r in dc_rows:
-            try:
-                rate = float(r[7]) * 100
-            except:
-                rate = 0.0
-            dc_data.append({
-                "outlet_code": r[0],
-                "region_code": r[1],
-                "area_code": r[2],
-                "on_hand": int(r[3]),
-                "sopd": int(r[4]),
-                "dvl": int(r[5]),
-                "pod": int(r[6]),
-                "success_rate": round(rate, 2)
-            })
+    for r in dc_rows:
+        try:
+            rate = float(r[7]) * 100
+        except:
+            rate = 0.0
+        dc_data.append({
+            "outlet_code": r[0],
+            "region_code": r[1],
+            "area_code": r[2],
+            "on_hand": int(r[3]),
+            "sopd": int(r[4]),
+            "dvl": int(r[5]),
+            "pod": int(r[6]),
+            "success_rate": round(rate, 2)
+        })
 
     parcels_data = []
-    if all_con_rows:
-        for c in all_con_rows:
-            parcels_data.append({
-                "waybill_no": c[0],
-                "outlet_code": c[1],
-                "area_code": c[3],
-                "customer_channel": c[6],
-                "arrival_shift": c[7],
-                "out_time": c[8],
-                "last_dvl_time": c[9],
-                "status": c[11],
-                "dly_code": c[12] if len(c) > 12 else "-",
-                "dly_type": c[13] if len(c) > 13 else "-",
-                "con_type": c[16] if len(c) > 16 else "-",
-                "aoi_id": c[17] if len(c) > 17 else "-"
-            })
+    for c in all_con_rows:
+        parcels_data.append({
+            "waybill_no": c[0],
+            "outlet_code": c[1],
+            "area_code": c[3],
+            "customer_channel": c[6],
+            "arrival_shift": c[7],
+            "out_time": c[8],
+            "last_dvl_time": c[9],
+            "status": c[11],
+            "dly_code": c[12] if len(c) > 12 else "-",
+            "dly_type": c[13] if len(c) > 13 else "-",
+            "con_type": c[16] if len(c) > 16 else "-",
+            "aoi_id": c[17] if len(c) > 17 else "-"
+        })
 
-    os.makedirs("data", exist_ok=True)
-    web_payload = {
-        "updated_at": display_time,
-        "date_range": f"{day1} - {day2}" if day1 != day2 else day1,
-        "partition_day1": day1,
-        "partition_day2": day2,
-        "report_time": formatted_time,
-        "report_hour": clean_time,
-        "zone": zone,
+    result_payload = {
         "summary": {
             "podoh_rate": round(podoh_val, 2),
             "on_hand": total_oh,
@@ -194,26 +172,145 @@ def main():
         "dc_list": dc_data,
         "parcels": parcels_data
     }
+    return True, result_payload
+
+def update_daily_history_log(day_str, clean_time, display_time, result_payload):
+    """บันทึกข้อมูลย้อนหลังรายวัน/รายเดือนเพื่อใช้ทำ Analytics Dashboard"""
+    os.makedirs("data", exist_ok=True)
+    history_file = "data/daily_history.json"
+    
+    history_data = {}
+    if os.path.exists(history_file):
+        try:
+            with open(history_file, "r", encoding="utf-8") as f:
+                history_data = json.load(f)
+        except Exception:
+            history_data = {}
+
+    summary = result_payload["summary"]
+    is_closing_hour = (str(clean_time) == "22")
+
+    entry = {
+        "date": day_str,
+        "recorded_at": display_time,
+        "final_hour": clean_time,
+        "is_day_closed": is_closing_hour,
+        "podoh_rate": summary["podoh_rate"],
+        "on_hand": summary["on_hand"],
+        "pod": summary["pod"],
+        "sopd": summary["sopd"],
+        "dvl": summary["dvl"],
+        "dc_list": result_payload["dc_list"]
+    }
+
+    # เก็บประวัติแยกตามวัน
+    history_data[day_str] = entry
+
+    with open(history_file, "w", encoding="utf-8") as f:
+        json.dump(history_data, f, ensure_ascii=False, indent=2)
+    print(f"-> อัปเดตประวัติรายวัน data/daily_history.json เรียบร้อย (Closing: {is_closing_hour})")
+
+def save_and_notify(result_payload, day1, day2, formatted_time, clean_time, display_time, zone="BKKC1"):
+    os.makedirs("data", exist_ok=True)
+    web_payload = {
+        "updated_at": display_time,
+        "date_range": f"{day1} - {day2}" if day1 != day2 else day1,
+        "partition_day1": day1,
+        "partition_day2": day2,
+        "report_time": formatted_time,
+        "report_hour": clean_time,
+        "zone": zone,
+        **result_payload
+    }
 
     with open("data/latest.json", "w", encoding="utf-8") as f:
         json.dump(web_payload, f, ensure_ascii=False, indent=2)
+    print("-> บันทึกไฟล์ data/latest.json เรียบร้อยแล้ว")
 
+    # บันทึกลง Log ประวัติศาสตร์
+    update_daily_history_log(day1, clean_time, display_time, result_payload)
+
+    # ส่ง DingTalk
+    summary = result_payload["summary"]
+    closing_tag = " [🌙 สรุปปิดยอดประจำวัน]" if str(clean_time) == "22" else ""
     lines = [
-        f"### 📦 รายงานสถานะจัดส่ง Lazada ({zone})",
-        f"**ช่วงวันที่:** `{day1}` ถึง `{day2}` | **รอบเวลา:** `{formatted_time}` น.",
-        f"**อัปเดตเมื่อ:** {display_time}",
+        f"### 📦 รายงานสถานะจัดส่ง Lazada ({zone}){closing_tag}",
+        f"**รอบเวลา:** `{clean_time}:00 น.` (ข้อมูลรอบ {formatted_time})",
+        f"**วันที่ค้นหา:** `{day1}` | **เวลาที่ส่ง:** {display_time}",
         f"---",
-        f"- **อัตราสำเร็จ (PODOH):** `{podoh_val:.2f}%`",
-        f"- **ยอดคงค้าง On-Hand (OH):** `{total_oh}` ชิ้น",
-        f"- **จัดส่งสำเร็จ (POD):** `{total_pod}` ชิ้น",
-        f"- **ยอด SOP-D:** `{total_sopd}` ชิ้น",
+        f"- **อัตราสำเร็จ (PODOH):** `{summary['podoh_rate']:.2f}%`",
+        f"- **ยอดคงค้าง On-Hand (OH):** `{summary['on_hand']}` ชิ้น",
+        f"- **จัดส่งสำเร็จ (POD):** `{summary['pod']}` ชิ้น",
+        f"- **ยอด SOP-D:** `{summary['sopd']}` ชิ้น",
         f"---",
         f"#### 🏢 ยอดแยกรายสาขา (DC):"
     ]
-    for dc in dc_data:
+    for dc in result_payload["dc_list"]:
         lines.append(f"> **DC {dc['outlet_code']}:** ค้าง `{dc['on_hand']}` | POD `{dc['pod']}` | สำเร็จ `{dc['success_rate']}%`")
 
-    send_dingtalk_message(f"รายงาน Lazada {zone} ({day1} รอบ {clean_time}น.)", "\n\n".join(lines))
+    send_dingtalk_message(f"รายงาน Lazada {zone} ({clean_time}:00น.){closing_tag}", "\n\n".join(lines))
+
+def main():
+    now_bkk = get_bkk_now()
+    display_time = now_bkk.strftime("%Y-%m-%d %H:%M:%S")
+    zone = "BKKC1"
+
+    if RUN_MODE == "test_bot_only":
+        print("[MODE] กำลังทดสอบส่งข้อความเข้า DingTalk Webhook...")
+        test_msg = (
+            f"### 🔔 ทดสอบการเชื่อมต่อ DingTalk Bot สำเร็จ\n"
+            f"- **ระบบ:** Lazada Operations Live Monitor\n"
+            f"- **เวลาทดสอบ:** {display_time}\n"
+            f"- **สถานะ Webhook:** เชื่อมต่อสำเร็จปกติ 100%"
+        )
+        success = send_dingtalk_message("ทดสอบบอท DingTalk", test_msg)
+        return
+
+    if RUN_MODE == "manual_custom":
+        day1 = CUSTOM_DAY1 if CUSTOM_DAY1 else now_bkk.strftime("%Y%m%d")
+        day2 = CUSTOM_DAY2 if CUSTOM_DAY2 else day1
+        hour_target = CUSTOM_HOUR if CUSTOM_HOUR else str(now_bkk.hour)
+    else:
+        day1 = now_bkk.strftime("%Y%m%d")
+        day2 = day1
+        hour_target = str(now_bkk.hour)
+
+    formatted_time, clean_time = format_hour(hour_target)
+
+    if RUN_MODE == "test_full_flow":
+        print(f"[MODE] ทดสอบ Flow เต็มระบบ: วันที่ {day1} รอบเวลา {formatted_time}")
+        ok, result = fetch_data_pipeline(day1, day2, formatted_time, clean_time, zone)
+        if ok:
+            save_and_notify(result, day1, day2, formatted_time, clean_time, display_time, zone)
+            print("-> ทดสอบ Flow สำเร็จเรียบร้อย!")
+        else:
+            print("-> ทดสอบ Flow ไม่สำเร็จ (ไม่สามารถดึงข้อมูลจาก API ได้)")
+        return
+
+    print(f"[AUTO] เริ่มดึงข้อมูลรอบ {clean_time}:00 น. (ตัวกรอง: {formatted_time})")
+    retry_delay_sec = 180
+    max_attempts = 14
+
+    attempt = 1
+    while attempt <= max_attempts:
+        current_time = get_bkk_now()
+        print(f"[{current_time.strftime('%H:%M:%S')}] พยายามดึงข้อมูลครั้งที่ {attempt}/{max_attempts}...")
+        
+        ok, result = fetch_data_pipeline(day1, day2, formatted_time, clean_time, zone)
+        if ok:
+            print("-> ดึงข้อมูลสำเร็จ!")
+            save_and_notify(result, day1, day2, formatted_time, clean_time, current_time.strftime("%Y-%m-%d %H:%M:%S"), zone)
+            return
+
+        if current_time.minute >= 40 and current_time.hour != now_bkk.hour:
+            print("-> ใกล้ถึงรอบเวลาใหม่แล้ว ข้ามรอบนี้เพื่อให้รอบถัดไปทำงานแทน")
+            break
+
+        print(f"-> ดึงข้อมูลไม่สำเร็จหรือข้อมูลยังไม่ออก รอ {retry_delay_sec//60} นาทีเพื่อลองใหม่...")
+        time.sleep(retry_delay_sec)
+        attempt += 1
+
+    print("[AUTO] สิ้นสุดการทำงานของรอบนี้ ข้ามไปรันรอบถัดไป")
 
 if __name__ == "__main__":
     main()
