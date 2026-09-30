@@ -44,14 +44,85 @@
   },
   "20260930": {
     "date": "20260930",
-    "recorded_at": "2026-09-30 18:52:05",
-    "final_hour": "18",
-    "is_day_closed": true,
-    "podoh_rate": 0.0,
-    "on_hand": 0,
-    "pod": 0,
-    "sopd": 0,
-    "dvl": 0,
-    "dc_list": []
+    "recorded_at": "2026-09-30 19:58:35",
+    "final_hour": "19",
+    "is_day_closed": false,
+    "podoh_rate": 86.36,
+    "on_hand": 44,
+    "pod": 38,
+    "sopd": 43,
+    "dvl": 39,
+    "dc_list": [
+      {
+        "outlet_code": "HLP",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 6,
+        "sopd": 6,
+        "dvl": 6,
+        "pod": 5,
+        "success_rate": 83.33
+      },
+      {
+        "outlet_code": "PPL",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 4,
+        "sopd": 4,
+        "dvl": 0,
+        "pod": 0,
+        "success_rate": 0.0
+      },
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 1,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "HK2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 6,
+        "sopd": 6,
+        "dvl": 6,
+        "pod": 6,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "PYR",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 12,
+        "sopd": 12,
+        "dvl": 12,
+        "pod": 12,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "RM6",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 7,
+        "sopd": 6,
+        "dvl": 6,
+        "pod": 6,
+        "success_rate": 85.71
+      },
+      {
+        "outlet_code": "PY2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 8,
+        "sopd": 8,
+        "dvl": 8,
+        "pod": 8,
+        "success_rate": 100.0
+      }
+    ]
   }
 }
