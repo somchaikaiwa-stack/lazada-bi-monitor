@@ -44,14 +44,85 @@
   },
   "20260930": {
     "date": "20260930",
-    "recorded_at": "2026-09-30 16:53:30",
-    "final_hour": "16",
-    "is_day_closed": true,
-    "podoh_rate": 0.0,
-    "on_hand": 0,
-    "pod": 0,
-    "sopd": 0,
-    "dvl": 0,
-    "dc_list": []
+    "recorded_at": "2026-09-30 17:53:07",
+    "final_hour": "17",
+    "is_day_closed": false,
+    "podoh_rate": 80.0,
+    "on_hand": 40,
+    "pod": 32,
+    "sopd": 39,
+    "dvl": 35,
+    "dc_list": [
+      {
+        "outlet_code": "PPL",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 4,
+        "sopd": 4,
+        "dvl": 0,
+        "pod": 0,
+        "success_rate": 0.0
+      },
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 1,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "HK2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 5,
+        "sopd": 5,
+        "dvl": 5,
+        "pod": 5,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "HLP",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 6,
+        "sopd": 6,
+        "dvl": 6,
+        "pod": 3,
+        "success_rate": 50.0
+      },
+      {
+        "outlet_code": "RM6",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 4,
+        "sopd": 3,
+        "dvl": 3,
+        "pod": 3,
+        "success_rate": 75.0
+      },
+      {
+        "outlet_code": "PYR",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 12,
+        "sopd": 12,
+        "dvl": 12,
+        "pod": 12,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "PY2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 8,
+        "sopd": 8,
+        "dvl": 8,
+        "pod": 8,
+        "success_rate": 100.0
+      }
+    ]
   }
 }
