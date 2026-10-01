@@ -127,45 +127,15 @@
   },
   "20261001": {
     "date": "20261001",
-    "recorded_at": "2026-10-01 10:56:42",
-    "final_hour": "10",
+    "recorded_at": "2026-10-01 11:53:25",
+    "final_hour": "11",
     "is_day_closed": false,
-    "podoh_rate": 7.41,
+    "podoh_rate": 11.11,
     "on_hand": 27,
-    "pod": 2,
-    "sopd": 20,
-    "dvl": 14,
+    "pod": 3,
+    "sopd": 22,
+    "dvl": 16,
     "dc_list": [
-      {
-        "outlet_code": "HK2",
-        "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 3,
-        "sopd": 3,
-        "dvl": 1,
-        "pod": 0,
-        "success_rate": 0.0
-      },
-      {
-        "outlet_code": "PPL",
-        "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 12,
-        "sopd": 8,
-        "dvl": 5,
-        "pod": 1,
-        "success_rate": 8.33
-      },
-      {
-        "outlet_code": "RCD",
-        "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 3,
-        "sopd": 3,
-        "dvl": 2,
-        "pod": 0,
-        "success_rate": 0.0
-      },
       {
         "outlet_code": "HLP",
         "region_code": "BKKC1",
@@ -177,12 +147,42 @@
         "success_rate": 16.67
       },
       {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 4,
+        "sopd": 4,
+        "dvl": 3,
+        "pod": 1,
+        "success_rate": 25.0
+      },
+      {
+        "outlet_code": "PPL",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 11,
+        "sopd": 8,
+        "dvl": 5,
+        "pod": 1,
+        "success_rate": 9.09
+      },
+      {
+        "outlet_code": "HK2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 3,
+        "sopd": 3,
+        "dvl": 1,
+        "pod": 0,
+        "success_rate": 0.0
+      },
+      {
         "outlet_code": "RM6",
         "region_code": "BKKC1",
         "area_code": "BKKC102",
         "on_hand": 2,
-        "sopd": 0,
-        "dvl": 0,
+        "sopd": 1,
+        "dvl": 1,
         "pod": 0,
         "success_rate": 0.0
       },
