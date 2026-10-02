@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-10-02 19:55:29",
+  "updated_at": "2026-10-02 20:53:28",
   "date_range": "20261002",
   "partition_day1": "20261002",
   "partition_day2": "20261002",
-  "report_time": "[19]",
-  "report_hour": "19",
+  "report_time": "[20]",
+  "report_hour": "20",
   "zone": "BKKC1",
   "summary": {
     "podoh_rate": 85.19,
@@ -15,16 +15,6 @@
   },
   "dc_list": [
     {
-      "outlet_code": "HLP",
-      "region_code": "BKKC1",
-      "area_code": "BKKC101",
-      "on_hand": 5,
-      "sopd": 5,
-      "dvl": 5,
-      "pod": 5,
-      "success_rate": 100.0
-    },
-    {
       "outlet_code": "PPL",
       "region_code": "BKKC1",
       "area_code": "BKKC101",
@@ -33,6 +23,16 @@
       "dvl": 6,
       "pod": 6,
       "success_rate": 85.71
+    },
+    {
+      "outlet_code": "HLP",
+      "region_code": "BKKC1",
+      "area_code": "BKKC101",
+      "on_hand": 5,
+      "sopd": 5,
+      "dvl": 5,
+      "pod": 5,
+      "success_rate": 100.0
     },
     {
       "outlet_code": "HK2",
@@ -45,14 +45,14 @@
       "success_rate": 100.0
     },
     {
-      "outlet_code": "PYR",
+      "outlet_code": "RM6",
       "region_code": "BKKC1",
       "area_code": "BKKC102",
-      "on_hand": 7,
-      "sopd": 7,
-      "dvl": 7,
-      "pod": 6,
-      "success_rate": 85.71
+      "on_hand": 1,
+      "sopd": 0,
+      "dvl": 0,
+      "pod": 0,
+      "success_rate": 0.0
     },
     {
       "outlet_code": "PY2",
@@ -65,14 +65,14 @@
       "success_rate": 83.33
     },
     {
-      "outlet_code": "RM6",
+      "outlet_code": "PYR",
       "region_code": "BKKC1",
       "area_code": "BKKC102",
-      "on_hand": 1,
-      "sopd": 0,
-      "dvl": 0,
-      "pod": 0,
-      "success_rate": 0.0
+      "on_hand": 7,
+      "sopd": 7,
+      "dvl": 7,
+      "pod": 6,
+      "success_rate": 85.71
     }
   ],
   "parcels": [
