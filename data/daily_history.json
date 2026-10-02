@@ -210,8 +210,8 @@
   },
   "20261002": {
     "date": "20261002",
-    "recorded_at": "2026-10-02 12:51:43",
-    "final_hour": "12",
+    "recorded_at": "2026-10-02 13:55:45",
+    "final_hour": "13",
     "is_day_closed": false,
     "podoh_rate": 58.33,
     "on_hand": 12,
@@ -250,16 +250,6 @@
         "success_rate": 0.0
       },
       {
-        "outlet_code": "RM6",
-        "region_code": "BKKC1",
-        "area_code": "BKKC102",
-        "on_hand": 1,
-        "sopd": 0,
-        "dvl": 0,
-        "pod": 0,
-        "success_rate": 0.0
-      },
-      {
         "outlet_code": "PY2",
         "region_code": "BKKC1",
         "area_code": "BKKC102",
@@ -278,6 +268,16 @@
         "dvl": 2,
         "pod": 2,
         "success_rate": 100.0
+      },
+      {
+        "outlet_code": "RM6",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 1,
+        "sopd": 0,
+        "dvl": 0,
+        "pod": 0,
+        "success_rate": 0.0
       }
     ]
   }
