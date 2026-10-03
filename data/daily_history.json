@@ -283,14 +283,14 @@
   },
   "20261003": {
     "date": "20261003",
-    "recorded_at": "2026-10-03 09:59:45",
-    "final_hour": "9",
+    "recorded_at": "2026-10-03 10:59:40",
+    "final_hour": "10",
     "is_day_closed": false,
-    "podoh_rate": 0.0,
-    "on_hand": 6,
-    "pod": 0,
-    "sopd": 3,
-    "dvl": 0,
+    "podoh_rate": 14.29,
+    "on_hand": 7,
+    "pod": 1,
+    "sopd": 5,
+    "dvl": 3,
     "dc_list": [
       {
         "outlet_code": "RCD",
@@ -298,7 +298,7 @@
         "area_code": "BKKC101",
         "on_hand": 1,
         "sopd": 1,
-        "dvl": 0,
+        "dvl": 1,
         "pod": 0,
         "success_rate": 0.0
       },
@@ -326,11 +326,11 @@
         "outlet_code": "PYR",
         "region_code": "BKKC1",
         "area_code": "BKKC102",
-        "on_hand": 1,
-        "sopd": 0,
-        "dvl": 0,
-        "pod": 0,
-        "success_rate": 0.0
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 1,
+        "success_rate": 50.0
       }
     ]
   }
