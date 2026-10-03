@@ -283,44 +283,44 @@
   },
   "20261003": {
     "date": "20261003",
-    "recorded_at": "2026-10-03 15:55:25",
-    "final_hour": "15",
+    "recorded_at": "2026-10-03 16:50:43",
+    "final_hour": "16",
     "is_day_closed": false,
-    "podoh_rate": 64.29,
-    "on_hand": 14,
+    "podoh_rate": 60.0,
+    "on_hand": 15,
     "pod": 9,
-    "sopd": 12,
-    "dvl": 10,
+    "sopd": 14,
+    "dvl": 13,
     "dc_list": [
-      {
-        "outlet_code": "RCD",
-        "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 1,
-        "sopd": 1,
-        "dvl": 1,
-        "pod": 1,
-        "success_rate": 100.0
-      },
       {
         "outlet_code": "HK2",
         "region_code": "BKKC1",
         "area_code": "BKKC101",
-        "on_hand": 4,
-        "sopd": 4,
-        "dvl": 4,
+        "on_hand": 5,
+        "sopd": 5,
+        "dvl": 5,
         "pod": 3,
-        "success_rate": 75.0
+        "success_rate": 60.0
+      },
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 1,
+        "success_rate": 50.0
       },
       {
         "outlet_code": "PPL",
         "region_code": "BKKC1",
         "area_code": "BKKC101",
-        "on_hand": 4,
+        "on_hand": 3,
         "sopd": 3,
-        "dvl": 1,
+        "dvl": 2,
         "pod": 1,
-        "success_rate": 25.0
+        "success_rate": 33.33
       },
       {
         "outlet_code": "RM6",
