@@ -307,14 +307,85 @@
   },
   "20261005": {
     "date": "20261005",
-    "recorded_at": "2026-10-05 18:53:40",
-    "final_hour": "18",
-    "is_day_closed": true,
-    "podoh_rate": 0.0,
-    "on_hand": 0,
-    "pod": 0,
-    "sopd": 0,
-    "dvl": 0,
-    "dc_list": []
+    "recorded_at": "2026-10-05 19:59:44",
+    "final_hour": "19",
+    "is_day_closed": false,
+    "podoh_rate": 85.71,
+    "on_hand": 14,
+    "pod": 12,
+    "sopd": 13,
+    "dvl": 13,
+    "dc_list": [
+      {
+        "outlet_code": "HK2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 1,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "PPL",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 1,
+        "sopd": 0,
+        "dvl": 0,
+        "pod": 1,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 1,
+        "success_rate": 50.0
+      },
+      {
+        "outlet_code": "HLP",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 4,
+        "sopd": 4,
+        "dvl": 4,
+        "pod": 4,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "RM6",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 1,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "PYR",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 4,
+        "sopd": 4,
+        "dvl": 4,
+        "pod": 3,
+        "success_rate": 75.0
+      },
+      {
+        "outlet_code": "PY2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 1,
+        "success_rate": 100.0
+      }
+    ]
   }
 }
