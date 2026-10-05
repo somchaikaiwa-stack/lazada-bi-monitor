@@ -1,37 +1,27 @@
 {
-  "updated_at": "2026-10-05 19:59:44",
+  "updated_at": "2026-10-05 20:55:49",
   "date_range": "20261005",
   "partition_day1": "20261005",
   "partition_day2": "20261005",
-  "report_time": "[19]",
-  "report_hour": "19",
+  "report_time": "[20]",
+  "report_hour": "20",
   "zone": "BKKC1",
   "summary": {
-    "podoh_rate": 85.71,
+    "podoh_rate": 92.86,
     "on_hand": 14,
-    "pod": 12,
+    "pod": 13,
     "sopd": 13,
     "dvl": 13
   },
   "dc_list": [
     {
-      "outlet_code": "HK2",
+      "outlet_code": "HLP",
       "region_code": "BKKC1",
       "area_code": "BKKC101",
-      "on_hand": 1,
-      "sopd": 1,
-      "dvl": 1,
-      "pod": 1,
-      "success_rate": 100.0
-    },
-    {
-      "outlet_code": "PPL",
-      "region_code": "BKKC1",
-      "area_code": "BKKC101",
-      "on_hand": 1,
-      "sopd": 0,
-      "dvl": 0,
-      "pod": 1,
+      "on_hand": 4,
+      "sopd": 4,
+      "dvl": 4,
+      "pod": 4,
       "success_rate": 100.0
     },
     {
@@ -45,17 +35,37 @@
       "success_rate": 50.0
     },
     {
-      "outlet_code": "HLP",
+      "outlet_code": "PPL",
       "region_code": "BKKC1",
       "area_code": "BKKC101",
-      "on_hand": 4,
-      "sopd": 4,
-      "dvl": 4,
-      "pod": 4,
+      "on_hand": 1,
+      "sopd": 0,
+      "dvl": 0,
+      "pod": 1,
+      "success_rate": 100.0
+    },
+    {
+      "outlet_code": "HK2",
+      "region_code": "BKKC1",
+      "area_code": "BKKC101",
+      "on_hand": 1,
+      "sopd": 1,
+      "dvl": 1,
+      "pod": 1,
       "success_rate": 100.0
     },
     {
       "outlet_code": "RM6",
+      "region_code": "BKKC1",
+      "area_code": "BKKC102",
+      "on_hand": 1,
+      "sopd": 1,
+      "dvl": 1,
+      "pod": 1,
+      "success_rate": 100.0
+    },
+    {
+      "outlet_code": "PY2",
       "region_code": "BKKC1",
       "area_code": "BKKC102",
       "on_hand": 1,
@@ -71,17 +81,7 @@
       "on_hand": 4,
       "sopd": 4,
       "dvl": 4,
-      "pod": 3,
-      "success_rate": 75.0
-    },
-    {
-      "outlet_code": "PY2",
-      "region_code": "BKKC1",
-      "area_code": "BKKC102",
-      "on_hand": 1,
-      "sopd": 1,
-      "dvl": 1,
-      "pod": 1,
+      "pod": 4,
       "success_rate": 100.0
     }
   ],
@@ -234,7 +234,7 @@
       "arrival_shift": "01D",
       "out_time": "2026-10-05 15:49:33",
       "last_dvl_time": "2026-10-05 15:54:31",
-      "status": "Pending",
+      "status": "POD",
       "dly_code": "DLY17",
       "dly_type": "WFD",
       "con_type": "CLS(WFD)",
