@@ -316,5 +316,17 @@
     "sopd": 0,
     "dvl": 0,
     "dc_list": []
+  },
+  "20261006": {
+    "date": "20261006",
+    "recorded_at": "2026-10-06 09:52:21",
+    "final_hour": "9",
+    "is_day_closed": true,
+    "podoh_rate": 0.0,
+    "on_hand": 0,
+    "pod": 0,
+    "sopd": 0,
+    "dvl": 0,
+    "dc_list": []
   }
 }
