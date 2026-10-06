@@ -319,12 +319,12 @@
   },
   "20261006": {
     "date": "20261006",
-    "recorded_at": "2026-10-06 11:52:33",
-    "final_hour": "11",
+    "recorded_at": "2026-10-06 12:52:14",
+    "final_hour": "12",
     "is_day_closed": false,
-    "podoh_rate": 28.57,
+    "podoh_rate": 57.14,
     "on_hand": 7,
-    "pod": 2,
+    "pod": 4,
     "sopd": 7,
     "dvl": 6,
     "dc_list": [
@@ -345,8 +345,8 @@
         "on_hand": 3,
         "sopd": 3,
         "dvl": 3,
-        "pod": 0,
-        "success_rate": 0.0
+        "pod": 2,
+        "success_rate": 66.67
       },
       {
         "outlet_code": "PY2",
