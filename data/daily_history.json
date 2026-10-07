@@ -392,37 +392,17 @@
   },
   "20261007": {
     "date": "20261007",
-    "recorded_at": "2026-10-07 16:54:15",
-    "final_hour": "16",
+    "recorded_at": "2026-10-07 17:57:19",
+    "final_hour": "17",
     "is_day_closed": false,
-    "podoh_rate": 73.91,
-    "on_hand": 23,
+    "podoh_rate": 70.83,
+    "on_hand": 24,
     "pod": 17,
-    "sopd": 23,
-    "dvl": 21,
+    "sopd": 24,
+    "dvl": 23,
     "dc_list": [
       {
         "outlet_code": "PPL",
-        "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 2,
-        "sopd": 2,
-        "dvl": 2,
-        "pod": 2,
-        "success_rate": 100.0
-      },
-      {
-        "outlet_code": "RCD",
-        "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 2,
-        "sopd": 2,
-        "dvl": 2,
-        "pod": 1,
-        "success_rate": 50.0
-      },
-      {
-        "outlet_code": "HK2",
         "region_code": "BKKC1",
         "area_code": "BKKC101",
         "on_hand": 2,
@@ -437,9 +417,39 @@
         "area_code": "BKKC101",
         "on_hand": 5,
         "sopd": 5,
-        "dvl": 4,
+        "dvl": 5,
         "pod": 4,
         "success_rate": 80.0
+      },
+      {
+        "outlet_code": "HK2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 3,
+        "sopd": 3,
+        "dvl": 3,
+        "pod": 2,
+        "success_rate": 66.67
+      },
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 1,
+        "success_rate": 50.0
+      },
+      {
+        "outlet_code": "PYR",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 4,
+        "sopd": 4,
+        "dvl": 3,
+        "pod": 3,
+        "success_rate": 75.0
       },
       {
         "outlet_code": "PY2",
@@ -460,16 +470,6 @@
         "dvl": 3,
         "pod": 0,
         "success_rate": 0.0
-      },
-      {
-        "outlet_code": "PYR",
-        "region_code": "BKKC1",
-        "area_code": "BKKC102",
-        "on_hand": 4,
-        "sopd": 4,
-        "dvl": 3,
-        "pod": 3,
-        "success_rate": 75.0
       }
     ]
   }
