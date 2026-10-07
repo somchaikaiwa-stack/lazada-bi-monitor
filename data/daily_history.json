@@ -392,15 +392,25 @@
   },
   "20261007": {
     "date": "20261007",
-    "recorded_at": "2026-10-07 14:53:15",
-    "final_hour": "14",
+    "recorded_at": "2026-10-07 15:54:02",
+    "final_hour": "15",
     "is_day_closed": false,
-    "podoh_rate": 43.48,
+    "podoh_rate": 60.87,
     "on_hand": 23,
-    "pod": 10,
-    "sopd": 22,
-    "dvl": 18,
+    "pod": 14,
+    "sopd": 23,
+    "dvl": 21,
     "dc_list": [
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 0,
+        "success_rate": 0.0
+      },
       {
         "outlet_code": "HLP",
         "region_code": "BKKC1",
@@ -417,9 +427,9 @@
         "area_code": "BKKC101",
         "on_hand": 2,
         "sopd": 2,
-        "dvl": 1,
-        "pod": 0,
-        "success_rate": 0.0
+        "dvl": 2,
+        "pod": 2,
+        "success_rate": 100.0
       },
       {
         "outlet_code": "PPL",
@@ -427,19 +437,19 @@
         "area_code": "BKKC101",
         "on_hand": 2,
         "sopd": 2,
-        "dvl": 1,
+        "dvl": 2,
         "pod": 1,
         "success_rate": 50.0
       },
       {
-        "outlet_code": "RCD",
+        "outlet_code": "PYR",
         "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 2,
-        "sopd": 1,
-        "dvl": 1,
-        "pod": 0,
-        "success_rate": 0.0
+        "area_code": "BKKC102",
+        "on_hand": 4,
+        "sopd": 4,
+        "dvl": 3,
+        "pod": 3,
+        "success_rate": 75.0
       },
       {
         "outlet_code": "RM6",
@@ -458,18 +468,8 @@
         "on_hand": 5,
         "sopd": 5,
         "dvl": 5,
-        "pod": 4,
-        "success_rate": 80.0
-      },
-      {
-        "outlet_code": "PYR",
-        "region_code": "BKKC1",
-        "area_code": "BKKC102",
-        "on_hand": 4,
-        "sopd": 4,
-        "dvl": 3,
-        "pod": 2,
-        "success_rate": 50.0
+        "pod": 5,
+        "success_rate": 100.0
       }
     ]
   }

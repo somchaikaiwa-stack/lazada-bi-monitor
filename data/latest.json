@@ -1,19 +1,29 @@
 {
-  "updated_at": "2026-10-07 14:53:15",
+  "updated_at": "2026-10-07 15:54:02",
   "date_range": "20261007",
   "partition_day1": "20261007",
   "partition_day2": "20261007",
-  "report_time": "[14]",
-  "report_hour": "14",
+  "report_time": "[15]",
+  "report_hour": "15",
   "zone": "BKKC1",
   "summary": {
-    "podoh_rate": 43.48,
+    "podoh_rate": 60.87,
     "on_hand": 23,
-    "pod": 10,
-    "sopd": 22,
-    "dvl": 18
+    "pod": 14,
+    "sopd": 23,
+    "dvl": 21
   },
   "dc_list": [
+    {
+      "outlet_code": "RCD",
+      "region_code": "BKKC1",
+      "area_code": "BKKC101",
+      "on_hand": 2,
+      "sopd": 2,
+      "dvl": 2,
+      "pod": 0,
+      "success_rate": 0.0
+    },
     {
       "outlet_code": "HLP",
       "region_code": "BKKC1",
@@ -30,9 +40,9 @@
       "area_code": "BKKC101",
       "on_hand": 2,
       "sopd": 2,
-      "dvl": 1,
-      "pod": 0,
-      "success_rate": 0.0
+      "dvl": 2,
+      "pod": 2,
+      "success_rate": 100.0
     },
     {
       "outlet_code": "PPL",
@@ -40,19 +50,19 @@
       "area_code": "BKKC101",
       "on_hand": 2,
       "sopd": 2,
-      "dvl": 1,
+      "dvl": 2,
       "pod": 1,
       "success_rate": 50.0
     },
     {
-      "outlet_code": "RCD",
+      "outlet_code": "PYR",
       "region_code": "BKKC1",
-      "area_code": "BKKC101",
-      "on_hand": 2,
-      "sopd": 1,
-      "dvl": 1,
-      "pod": 0,
-      "success_rate": 0.0
+      "area_code": "BKKC102",
+      "on_hand": 4,
+      "sopd": 4,
+      "dvl": 3,
+      "pod": 3,
+      "success_rate": 75.0
     },
     {
       "outlet_code": "RM6",
@@ -71,18 +81,8 @@
       "on_hand": 5,
       "sopd": 5,
       "dvl": 5,
-      "pod": 4,
-      "success_rate": 80.0
-    },
-    {
-      "outlet_code": "PYR",
-      "region_code": "BKKC1",
-      "area_code": "BKKC102",
-      "on_hand": 4,
-      "sopd": 4,
-      "dvl": 3,
-      "pod": 2,
-      "success_rate": 50.0
+      "pod": 5,
+      "success_rate": 100.0
     }
   ],
   "parcels": [
@@ -150,7 +150,7 @@
       "arrival_shift": "01D",
       "out_time": "2026-10-07 09:09:09",
       "last_dvl_time": "2026-10-07 09:14:02",
-      "status": "Pending",
+      "status": "POD",
       "dly_code": "-",
       "dly_type": "-",
       "con_type": "SIP-L",
@@ -176,8 +176,8 @@
       "area_code": "BKKC101",
       "customer_channel": "Lazada",
       "arrival_shift": "01D",
-      "out_time": null,
-      "last_dvl_time": null,
+      "out_time": "2026-10-07 14:26:12",
+      "last_dvl_time": "2026-10-07 14:31:11",
       "status": "Pending",
       "dly_code": "-",
       "dly_type": "-",
@@ -204,8 +204,8 @@
       "area_code": "BKKC101",
       "customer_channel": "Lazada",
       "arrival_shift": "02D",
-      "out_time": "2026-10-07 13:35:27",
-      "last_dvl_time": null,
+      "out_time": "2026-10-07 14:31:34",
+      "last_dvl_time": "2026-10-07 14:36:35",
       "status": "Pending",
       "dly_code": "-",
       "dly_type": "-",
@@ -218,9 +218,9 @@
       "area_code": "BKKC101",
       "customer_channel": "Lazada",
       "arrival_shift": "02D",
-      "out_time": "2026-10-07 13:34:34",
-      "last_dvl_time": null,
-      "status": "Pending",
+      "out_time": "2026-10-07 14:34:39",
+      "last_dvl_time": "2026-10-07 14:39:39",
+      "status": "POD",
       "dly_code": "-",
       "dly_type": "-",
       "con_type": "SIP-L",
@@ -346,7 +346,7 @@
       "arrival_shift": "02D",
       "out_time": "2026-10-07 13:08:57",
       "last_dvl_time": "2026-10-07 13:13:54",
-      "status": "Pending",
+      "status": "POD",
       "dly_code": "-",
       "dly_type": "-",
       "con_type": "SIP-L",
@@ -360,7 +360,7 @@
       "arrival_shift": "02D",
       "out_time": "2026-10-07 14:15:32",
       "last_dvl_time": "2026-10-07 14:20:31",
-      "status": "Pending",
+      "status": "POD",
       "dly_code": "-",
       "dly_type": "-",
       "con_type": "SIP-L",
