@@ -392,14 +392,85 @@
   },
   "20261007": {
     "date": "20261007",
-    "recorded_at": "2026-10-07 09:56:11",
-    "final_hour": "9",
-    "is_day_closed": true,
-    "podoh_rate": 0.0,
-    "on_hand": 0,
-    "pod": 0,
-    "sopd": 0,
-    "dvl": 0,
-    "dc_list": []
+    "recorded_at": "2026-10-07 10:53:54",
+    "final_hour": "10",
+    "is_day_closed": false,
+    "podoh_rate": 8.33,
+    "on_hand": 12,
+    "pod": 1,
+    "sopd": 11,
+    "dvl": 9,
+    "dc_list": [
+      {
+        "outlet_code": "PPL",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 0,
+        "success_rate": 0.0
+      },
+      {
+        "outlet_code": "HLP",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 4,
+        "sopd": 4,
+        "dvl": 4,
+        "pod": 0,
+        "success_rate": 0.0
+      },
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 2,
+        "sopd": 1,
+        "dvl": 0,
+        "pod": 0,
+        "success_rate": 0.0
+      },
+      {
+        "outlet_code": "HK2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 0,
+        "success_rate": 0.0
+      },
+      {
+        "outlet_code": "PY2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 0,
+        "pod": 0,
+        "success_rate": 0.0
+      },
+      {
+        "outlet_code": "RM6",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 0,
+        "success_rate": 0.0
+      },
+      {
+        "outlet_code": "PYR",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 1,
+        "success_rate": 100.0
+      }
+    ]
   }
 }
