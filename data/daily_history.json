@@ -465,15 +465,25 @@
   },
   "20261008": {
     "date": "20261008",
-    "recorded_at": "2026-10-08 15:55:08",
-    "final_hour": "15",
+    "recorded_at": "2026-10-08 16:55:12",
+    "final_hour": "16",
     "is_day_closed": false,
-    "podoh_rate": 53.33,
-    "on_hand": 30,
-    "pod": 16,
-    "sopd": 29,
-    "dvl": 19,
+    "podoh_rate": 61.29,
+    "on_hand": 31,
+    "pod": 19,
+    "sopd": 30,
+    "dvl": 24,
     "dc_list": [
+      {
+        "outlet_code": "PPL",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 4,
+        "sopd": 4,
+        "dvl": 4,
+        "pod": 3,
+        "success_rate": 75.0
+      },
       {
         "outlet_code": "HK2",
         "region_code": "BKKC1",
@@ -481,8 +491,8 @@
         "on_hand": 6,
         "sopd": 6,
         "dvl": 5,
-        "pod": 3,
-        "success_rate": 50.0
+        "pod": 4,
+        "success_rate": 66.67
       },
       {
         "outlet_code": "HLP",
@@ -490,7 +500,7 @@
         "area_code": "BKKC101",
         "on_hand": 7,
         "sopd": 7,
-        "dvl": 2,
+        "dvl": 5,
         "pod": 2,
         "success_rate": 28.57
       },
@@ -505,14 +515,14 @@
         "success_rate": 66.67
       },
       {
-        "outlet_code": "PPL",
+        "outlet_code": "PYR",
         "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 4,
-        "sopd": 4,
-        "dvl": 3,
-        "pod": 3,
-        "success_rate": 75.0
+        "area_code": "BKKC102",
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 2,
+        "success_rate": 100.0
       },
       {
         "outlet_code": "PY2",
@@ -528,21 +538,11 @@
         "outlet_code": "RM6",
         "region_code": "BKKC1",
         "area_code": "BKKC102",
-        "on_hand": 2,
-        "sopd": 1,
-        "dvl": 1,
-        "pod": 1,
-        "success_rate": 50.0
-      },
-      {
-        "outlet_code": "PYR",
-        "region_code": "BKKC1",
-        "area_code": "BKKC102",
-        "on_hand": 2,
+        "on_hand": 3,
         "sopd": 2,
         "dvl": 2,
-        "pod": 1,
-        "success_rate": 50.0
+        "pod": 2,
+        "success_rate": 66.67
       }
     ]
   }
