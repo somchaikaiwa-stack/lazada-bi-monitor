@@ -1,17 +1,17 @@
 {
-  "updated_at": "2026-10-10 16:51:43",
+  "updated_at": "2026-10-10 17:51:02",
   "date_range": "20261010",
   "partition_day1": "20261010",
   "partition_day2": "20261010",
-  "report_time": "[16]",
-  "report_hour": "16",
+  "report_time": "[17]",
+  "report_hour": "17",
   "zone": "BKKC1",
   "summary": {
-    "podoh_rate": 75.0,
-    "on_hand": 16,
-    "pod": 12,
-    "sopd": 15,
-    "dvl": 15
+    "podoh_rate": 85.0,
+    "on_hand": 20,
+    "pod": 17,
+    "sopd": 19,
+    "dvl": 19
   },
   "dc_list": [
     {
@@ -25,23 +25,23 @@
       "success_rate": 33.33
     },
     {
+      "outlet_code": "HK2",
+      "region_code": "BKKC1",
+      "area_code": "BKKC101",
+      "on_hand": 5,
+      "sopd": 5,
+      "dvl": 5,
+      "pod": 5,
+      "success_rate": 100.0
+    },
+    {
       "outlet_code": "HLP",
       "region_code": "BKKC1",
       "area_code": "BKKC101",
       "on_hand": 3,
       "sopd": 3,
       "dvl": 3,
-      "pod": 2,
-      "success_rate": 66.67
-    },
-    {
-      "outlet_code": "HK2",
-      "region_code": "BKKC1",
-      "area_code": "BKKC101",
-      "on_hand": 1,
-      "sopd": 1,
-      "dvl": 1,
-      "pod": 1,
+      "pod": 3,
       "success_rate": 100.0
     },
     {
@@ -77,6 +77,104 @@
   ],
   "parcels": [
     {
+      "waybill_no": "KEX602034526936",
+      "outlet_code": "RCD",
+      "area_code": "BKKC101",
+      "customer_channel": "Lazada",
+      "arrival_shift": "01D",
+      "out_time": "2026-10-10 16:03:19",
+      "last_dvl_time": "2026-10-10 16:08:19",
+      "status": "Pending",
+      "dly_code": "DLY08",
+      "dly_type": "WFD",
+      "con_type": "SIP-L",
+      "aoi_id": "RCD000109"
+    },
+    {
+      "waybill_no": "KEX602034624448",
+      "outlet_code": "RCD",
+      "area_code": "BKKC101",
+      "customer_channel": "Lazada",
+      "arrival_shift": "02D",
+      "out_time": null,
+      "last_dvl_time": null,
+      "status": "Pending",
+      "dly_code": "DLY12H",
+      "dly_type": "WFH",
+      "con_type": "SIP-L",
+      "aoi_id": "RCD000057"
+    },
+    {
+      "waybill_no": "KEX602034592207",
+      "outlet_code": "HLP",
+      "area_code": "BKKC101",
+      "customer_channel": "Lazada",
+      "arrival_shift": "01D",
+      "out_time": "2026-10-10 08:33:08",
+      "last_dvl_time": "2026-10-10 08:38:05",
+      "status": "POD",
+      "dly_code": "-",
+      "dly_type": "-",
+      "con_type": "SIP-L",
+      "aoi_id": "HLP000001"
+    },
+    {
+      "waybill_no": "KEX602034512329",
+      "outlet_code": "HK2",
+      "area_code": "BKKC101",
+      "customer_channel": "Lazada",
+      "arrival_shift": "01D",
+      "out_time": "2026-10-10 16:52:28",
+      "last_dvl_time": "2026-10-10 16:57:28",
+      "status": "POD",
+      "dly_code": "DLY12H",
+      "dly_type": "WFH",
+      "con_type": "CLS(WFD)",
+      "aoi_id": "-"
+    },
+    {
+      "waybill_no": "KEX602034442356",
+      "outlet_code": "HK2",
+      "area_code": "BKKC101",
+      "customer_channel": "Lazada",
+      "arrival_shift": "02D",
+      "out_time": "2026-10-10 14:51:43",
+      "last_dvl_time": "2026-10-10 14:56:42",
+      "status": "POD",
+      "dly_code": "DLY12H",
+      "dly_type": "WFH",
+      "con_type": "SIP-L",
+      "aoi_id": "-"
+    },
+    {
+      "waybill_no": "KEX602034530985",
+      "outlet_code": "HK2",
+      "area_code": "BKKC101",
+      "customer_channel": "Lazada",
+      "arrival_shift": "02D",
+      "out_time": "2026-10-10 14:51:44",
+      "last_dvl_time": "2026-10-10 14:56:42",
+      "status": "POD",
+      "dly_code": "DLY12H",
+      "dly_type": "WFH",
+      "con_type": "SIP-L",
+      "aoi_id": "-"
+    },
+    {
+      "waybill_no": "KEX602034456385",
+      "outlet_code": "HK2",
+      "area_code": "BKKC101",
+      "customer_channel": "Lazada",
+      "arrival_shift": "02D",
+      "out_time": "2026-10-10 14:51:43",
+      "last_dvl_time": "2026-10-10 14:56:42",
+      "status": "POD",
+      "dly_code": "DLY12H",
+      "dly_type": "WFH",
+      "con_type": "SIP-L",
+      "aoi_id": "-"
+    },
+    {
       "waybill_no": "KEX602034583555",
       "outlet_code": "RCD",
       "area_code": "BKKC101",
@@ -105,34 +203,6 @@
       "aoi_id": "HK2000005"
     },
     {
-      "waybill_no": "KEX602034592207",
-      "outlet_code": "HLP",
-      "area_code": "BKKC101",
-      "customer_channel": "Lazada",
-      "arrival_shift": "01D",
-      "out_time": "2026-10-10 08:33:08",
-      "last_dvl_time": "2026-10-10 08:38:05",
-      "status": "POD",
-      "dly_code": "-",
-      "dly_type": "-",
-      "con_type": "SIP-L",
-      "aoi_id": "HLP000001"
-    },
-    {
-      "waybill_no": "KEX602034526936",
-      "outlet_code": "RCD",
-      "area_code": "BKKC101",
-      "customer_channel": "Lazada",
-      "arrival_shift": "01D",
-      "out_time": "2026-10-10 16:03:19",
-      "last_dvl_time": "2026-10-10 16:08:19",
-      "status": "Pending",
-      "dly_code": "DLY08",
-      "dly_type": "WFD",
-      "con_type": "SIP-L",
-      "aoi_id": "RCD000109"
-    },
-    {
       "waybill_no": "KEX602034594567",
       "outlet_code": "HLP",
       "area_code": "BKKC101",
@@ -140,7 +210,7 @@
       "arrival_shift": "01D",
       "out_time": "2026-10-10 14:40:31",
       "last_dvl_time": "2026-10-10 14:45:29",
-      "status": "Pending",
+      "status": "POD",
       "dly_code": "-",
       "dly_type": "-",
       "con_type": "SIP-L",
@@ -159,34 +229,6 @@
       "dly_type": "-",
       "con_type": "SIP-L",
       "aoi_id": "HLP000149"
-    },
-    {
-      "waybill_no": "KEX602034624448",
-      "outlet_code": "RCD",
-      "area_code": "BKKC101",
-      "customer_channel": "Lazada",
-      "arrival_shift": "02D",
-      "out_time": null,
-      "last_dvl_time": null,
-      "status": "Pending",
-      "dly_code": "DLY12H",
-      "dly_type": "WFH",
-      "con_type": "SIP-L",
-      "aoi_id": "RCD000057"
-    },
-    {
-      "waybill_no": "KEX602034596227",
-      "outlet_code": "RM6",
-      "area_code": "BKKC102",
-      "customer_channel": "Lazada",
-      "arrival_shift": "01D",
-      "out_time": "2026-10-10 12:08:23",
-      "last_dvl_time": "2026-10-10 12:13:22",
-      "status": "POD",
-      "dly_code": "-",
-      "dly_type": "-",
-      "con_type": "SIP-L",
-      "aoi_id": "RM6000104"
     },
     {
       "waybill_no": "KEX602034512884",
@@ -217,20 +259,6 @@
       "aoi_id": "PYR000061"
     },
     {
-      "waybill_no": "KEX602034516992",
-      "outlet_code": "RM6",
-      "area_code": "BKKC102",
-      "customer_channel": "Lazada",
-      "arrival_shift": "01D",
-      "out_time": "2026-10-10 13:43:27",
-      "last_dvl_time": "2026-10-10 13:48:26",
-      "status": "POD",
-      "dly_code": "-",
-      "dly_type": "-",
-      "con_type": "SIP-L",
-      "aoi_id": "RM6000220"
-    },
-    {
       "waybill_no": "KEX602034601805",
       "outlet_code": "PY2",
       "area_code": "BKKC102",
@@ -243,6 +271,20 @@
       "dly_type": "-",
       "con_type": "SIP-L",
       "aoi_id": "PY2000364"
+    },
+    {
+      "waybill_no": "KEX602034584198",
+      "outlet_code": "PYR",
+      "area_code": "BKKC102",
+      "customer_channel": "Lazada",
+      "arrival_shift": "01D",
+      "out_time": "2026-10-10 16:43:50",
+      "last_dvl_time": "2026-10-10 16:48:50",
+      "status": "Pending",
+      "dly_code": "DLY17",
+      "dly_type": "WFD",
+      "con_type": "SIP-L",
+      "aoi_id": "PYR000075"
     },
     {
       "waybill_no": "KEX602034585191",
@@ -259,18 +301,32 @@
       "aoi_id": "RM6000189"
     },
     {
-      "waybill_no": "KEX602034583966",
-      "outlet_code": "PYR",
+      "waybill_no": "KEX602034516992",
+      "outlet_code": "RM6",
       "area_code": "BKKC102",
       "customer_channel": "Lazada",
-      "arrival_shift": "02D",
-      "out_time": "2026-10-10 13:18:25",
-      "last_dvl_time": "2026-10-10 13:23:24",
+      "arrival_shift": "01D",
+      "out_time": "2026-10-10 13:43:27",
+      "last_dvl_time": "2026-10-10 13:48:26",
       "status": "POD",
       "dly_code": "-",
       "dly_type": "-",
       "con_type": "SIP-L",
-      "aoi_id": "PYR000132"
+      "aoi_id": "RM6000220"
+    },
+    {
+      "waybill_no": "KEX602034596227",
+      "outlet_code": "RM6",
+      "area_code": "BKKC102",
+      "customer_channel": "Lazada",
+      "arrival_shift": "01D",
+      "out_time": "2026-10-10 12:08:23",
+      "last_dvl_time": "2026-10-10 12:13:22",
+      "status": "POD",
+      "dly_code": "-",
+      "dly_type": "-",
+      "con_type": "SIP-L",
+      "aoi_id": "RM6000104"
     },
     {
       "waybill_no": "KEX602034598490",
@@ -287,18 +343,18 @@
       "aoi_id": "PY2000298"
     },
     {
-      "waybill_no": "KEX602034584198",
+      "waybill_no": "KEX602034583966",
       "outlet_code": "PYR",
       "area_code": "BKKC102",
       "customer_channel": "Lazada",
-      "arrival_shift": "01D",
-      "out_time": "2026-10-10 15:24:28",
-      "last_dvl_time": "2026-10-10 15:29:28",
-      "status": "Pending",
+      "arrival_shift": "02D",
+      "out_time": "2026-10-10 13:18:25",
+      "last_dvl_time": "2026-10-10 13:23:24",
+      "status": "POD",
       "dly_code": "-",
       "dly_type": "-",
       "con_type": "SIP-L",
-      "aoi_id": "PYR000075"
+      "aoi_id": "PYR000132"
     }
   ]
 }
