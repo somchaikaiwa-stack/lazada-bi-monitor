@@ -1,19 +1,29 @@
 {
-  "updated_at": "2026-10-10 11:53:54",
+  "updated_at": "2026-10-10 12:51:50",
   "date_range": "20261010",
   "partition_day1": "20261010",
   "partition_day2": "20261010",
-  "report_time": "[11]",
-  "report_hour": "11",
+  "report_time": "[12]",
+  "report_hour": "12",
   "zone": "BKKC1",
   "summary": {
-    "podoh_rate": 12.5,
+    "podoh_rate": 37.5,
     "on_hand": 8,
-    "pod": 1,
+    "pod": 3,
     "sopd": 8,
     "dvl": 5
   },
   "dc_list": [
+    {
+      "outlet_code": "HLP",
+      "region_code": "BKKC1",
+      "area_code": "BKKC101",
+      "on_hand": 2,
+      "sopd": 2,
+      "dvl": 1,
+      "pod": 1,
+      "success_rate": 50.0
+    },
     {
       "outlet_code": "RCD",
       "region_code": "BKKC1",
@@ -25,14 +35,14 @@
       "success_rate": 0.0
     },
     {
-      "outlet_code": "HLP",
+      "outlet_code": "PY2",
       "region_code": "BKKC1",
-      "area_code": "BKKC101",
+      "area_code": "BKKC102",
       "on_hand": 2,
       "sopd": 2,
-      "dvl": 1,
-      "pod": 0,
-      "success_rate": 0.0
+      "dvl": 2,
+      "pod": 1,
+      "success_rate": 50.0
     },
     {
       "outlet_code": "RM6",
@@ -43,16 +53,6 @@
       "dvl": 1,
       "pod": 1,
       "success_rate": 50.0
-    },
-    {
-      "outlet_code": "PY2",
-      "region_code": "BKKC1",
-      "area_code": "BKKC102",
-      "on_hand": 2,
-      "sopd": 2,
-      "dvl": 2,
-      "pod": 0,
-      "success_rate": 0.0
     }
   ],
   "parcels": [
@@ -64,7 +64,7 @@
       "arrival_shift": "01D",
       "out_time": "2026-10-10 08:33:08",
       "last_dvl_time": "2026-10-10 08:38:05",
-      "status": "Pending",
+      "status": "POD",
       "dly_code": "-",
       "dly_type": "-",
       "con_type": "SIP-L",
@@ -148,7 +148,7 @@
       "arrival_shift": "01D",
       "out_time": "2026-10-10 10:49:44",
       "last_dvl_time": "2026-10-10 10:54:42",
-      "status": "Pending",
+      "status": "POD",
       "dly_code": "DLY01",
       "dly_type": "WFD",
       "con_type": "CLS(WFD)",
