@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-10-12 15:57:50",
+  "updated_at": "2026-10-12 16:57:47",
   "date_range": "20261012",
   "partition_day1": "20261012",
   "partition_day2": "20261012",
-  "report_time": "[15]",
-  "report_hour": "15",
+  "report_time": "[16]",
+  "report_hour": "16",
   "zone": "BKKC1",
   "summary": {
     "podoh_rate": 78.95,
@@ -15,16 +15,6 @@
   },
   "dc_list": [
     {
-      "outlet_code": "RCD",
-      "region_code": "BKKC1",
-      "area_code": "BKKC101",
-      "on_hand": 2,
-      "sopd": 2,
-      "dvl": 2,
-      "pod": 2,
-      "success_rate": 100.0
-    },
-    {
       "outlet_code": "HLP",
       "region_code": "BKKC1",
       "area_code": "BKKC101",
@@ -33,6 +23,16 @@
       "dvl": 5,
       "pod": 4,
       "success_rate": 80.0
+    },
+    {
+      "outlet_code": "RCD",
+      "region_code": "BKKC1",
+      "area_code": "BKKC101",
+      "on_hand": 2,
+      "sopd": 2,
+      "dvl": 2,
+      "pod": 2,
+      "success_rate": 100.0
     },
     {
       "outlet_code": "RM6",
