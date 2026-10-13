@@ -799,12 +799,12 @@
   },
   "20261013": {
     "date": "20261013",
-    "recorded_at": "2026-10-13 17:56:53",
-    "final_hour": "17",
+    "recorded_at": "2026-10-13 18:55:57",
+    "final_hour": "18",
     "is_day_closed": false,
-    "podoh_rate": 73.68,
+    "podoh_rate": 76.32,
     "on_hand": 38,
-    "pod": 28,
+    "pod": 29,
     "sopd": 35,
     "dvl": 32,
     "dc_list": [
@@ -819,14 +819,14 @@
         "success_rate": 75.0
       },
       {
-        "outlet_code": "HLP",
+        "outlet_code": "PPL",
         "region_code": "BKKC1",
         "area_code": "BKKC101",
-        "on_hand": 9,
-        "sopd": 9,
-        "dvl": 9,
-        "pod": 7,
-        "success_rate": 77.78
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 2,
+        "success_rate": 100.0
       },
       {
         "outlet_code": "RCD",
@@ -839,14 +839,14 @@
         "success_rate": 100.0
       },
       {
-        "outlet_code": "PPL",
+        "outlet_code": "HLP",
         "region_code": "BKKC1",
         "area_code": "BKKC101",
-        "on_hand": 2,
-        "sopd": 2,
-        "dvl": 2,
-        "pod": 2,
-        "success_rate": 100.0
+        "on_hand": 9,
+        "sopd": 9,
+        "dvl": 9,
+        "pod": 7,
+        "success_rate": 77.78
       },
       {
         "outlet_code": "PYR",
@@ -865,8 +865,8 @@
         "on_hand": 9,
         "sopd": 9,
         "dvl": 9,
-        "pod": 8,
-        "success_rate": 88.89
+        "pod": 9,
+        "success_rate": 100.0
       },
       {
         "outlet_code": "RM6",
