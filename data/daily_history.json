@@ -799,14 +799,85 @@
   },
   "20261013": {
     "date": "20261013",
-    "recorded_at": "2026-10-13 21:58:38",
-    "final_hour": "21",
+    "recorded_at": "2026-10-13 22:56:39",
+    "final_hour": "22",
     "is_day_closed": true,
-    "podoh_rate": 0.0,
-    "on_hand": 0,
-    "pod": 0,
-    "sopd": 0,
-    "dvl": 0,
-    "dc_list": []
+    "podoh_rate": 100.0,
+    "on_hand": 33,
+    "pod": 33,
+    "sopd": 33,
+    "dvl": 33,
+    "dc_list": [
+      {
+        "outlet_code": "HK2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 3,
+        "sopd": 3,
+        "dvl": 3,
+        "pod": 3,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "PPL",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 2,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "HLP",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 7,
+        "sopd": 7,
+        "dvl": 7,
+        "pod": 7,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 3,
+        "sopd": 3,
+        "dvl": 3,
+        "pod": 3,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "RM6",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 3,
+        "sopd": 3,
+        "dvl": 3,
+        "pod": 3,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "PY2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 9,
+        "sopd": 9,
+        "dvl": 9,
+        "pod": 9,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "PYR",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 6,
+        "sopd": 6,
+        "dvl": 6,
+        "pod": 6,
+        "success_rate": 100.0
+      }
+    ]
   }
 }
