@@ -796,5 +796,17 @@
     "sopd": 0,
     "dvl": 0,
     "dc_list": []
+  },
+  "20261013": {
+    "date": "20261013",
+    "recorded_at": "2026-10-13 09:55:22",
+    "final_hour": "9",
+    "is_day_closed": true,
+    "podoh_rate": 0.0,
+    "on_hand": 0,
+    "pod": 0,
+    "sopd": 0,
+    "dvl": 0,
+    "dc_list": []
   }
 }
