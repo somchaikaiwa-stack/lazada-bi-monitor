@@ -1026,5 +1026,17 @@
     "sopd": 0,
     "dvl": 0,
     "dc_list": []
+  },
+  "20261022": {
+    "date": "20261022",
+    "recorded_at": "2026-10-22 10:16:27",
+    "final_hour": "10",
+    "is_day_closed": true,
+    "podoh_rate": 0.0,
+    "on_hand": 0,
+    "pod": 0,
+    "sopd": 0,
+    "dvl": 0,
+    "dc_list": []
   }
 }
