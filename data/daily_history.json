@@ -1038,5 +1038,17 @@
     "sopd": 0,
     "dvl": 0,
     "dc_list": []
+  },
+  "20261023": {
+    "date": "20261023",
+    "recorded_at": "2026-10-23 10:10:22",
+    "final_hour": "10",
+    "is_day_closed": true,
+    "podoh_rate": 0.0,
+    "on_hand": 0,
+    "pod": 0,
+    "sopd": 0,
+    "dvl": 0,
+    "dc_list": []
   }
 }
