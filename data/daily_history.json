@@ -1230,5 +1230,17 @@
         "success_rate": 89.69
       }
     ]
+  },
+  "20261028": {
+    "date": "20261028",
+    "recorded_at": "2026-10-28 10:20:06",
+    "final_hour": "10",
+    "is_day_closed": true,
+    "podoh_rate": 0.0,
+    "on_hand": 0,
+    "pod": 0,
+    "sopd": 0,
+    "dvl": 0,
+    "dc_list": []
   }
 }
