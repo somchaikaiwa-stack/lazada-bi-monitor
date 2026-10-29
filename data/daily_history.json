@@ -1336,95 +1336,14 @@
   },
   "20261029": {
     "date": "20261029",
-    "recorded_at": "2026-10-29 20:39:23",
-    "final_hour": "20",
-    "is_day_closed": false,
-    "podoh_rate": 61.29,
-    "on_hand": 372,
-    "pod": 228,
-    "sopd": 245,
-    "dvl": 245,
-    "dc_list": [
-      {
-        "outlet_code": "BKKC101",
-        "region_code": "BKKC1",
-        "area_code": "BKKC1",
-        "on_hand": 1,
-        "sopd": 0,
-        "dvl": 0,
-        "pod": 0,
-        "success_rate": 0.0
-      },
-      {
-        "outlet_code": "HLP",
-        "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 4,
-        "sopd": 4,
-        "dvl": 4,
-        "pod": 4,
-        "success_rate": 100.0
-      },
-      {
-        "outlet_code": "HK2",
-        "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 45,
-        "sopd": 45,
-        "dvl": 45,
-        "pod": 44,
-        "success_rate": 97.78
-      },
-      {
-        "outlet_code": "PPL",
-        "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 2,
-        "sopd": 2,
-        "dvl": 2,
-        "pod": 2,
-        "success_rate": 100.0
-      },
-      {
-        "outlet_code": "RCD",
-        "region_code": "BKKC1",
-        "area_code": "BKKC101",
-        "on_hand": 1,
-        "sopd": 1,
-        "dvl": 1,
-        "pod": 1,
-        "success_rate": 100.0
-      },
-      {
-        "outlet_code": "RM6",
-        "region_code": "BKKC1",
-        "area_code": "BKKC102",
-        "on_hand": 303,
-        "sopd": 181,
-        "dvl": 181,
-        "pod": 164,
-        "success_rate": 54.13
-      },
-      {
-        "outlet_code": "PY2",
-        "region_code": "BKKC1",
-        "area_code": "BKKC102",
-        "on_hand": 8,
-        "sopd": 4,
-        "dvl": 4,
-        "pod": 5,
-        "success_rate": 62.5
-      },
-      {
-        "outlet_code": "PYR",
-        "region_code": "BKKC1",
-        "area_code": "BKKC102",
-        "on_hand": 8,
-        "sopd": 8,
-        "dvl": 8,
-        "pod": 8,
-        "success_rate": 100.0
-      }
-    ]
+    "recorded_at": "2026-10-29 21:29:25",
+    "final_hour": "21",
+    "is_day_closed": true,
+    "podoh_rate": 0.0,
+    "on_hand": 0,
+    "pod": 0,
+    "sopd": 0,
+    "dvl": 0,
+    "dc_list": []
   }
 }
