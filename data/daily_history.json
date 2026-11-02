@@ -1687,5 +1687,17 @@
         "success_rate": 85.71
       }
     ]
+  },
+  "20261103": {
+    "date": "20261103",
+    "recorded_at": "2026-11-03 03:29:49",
+    "final_hour": "3",
+    "is_day_closed": true,
+    "podoh_rate": 0.0,
+    "on_hand": 0,
+    "pod": 0,
+    "sopd": 0,
+    "dvl": 0,
+    "dc_list": []
   }
 }
