@@ -1870,14 +1870,85 @@
   },
   "20261107": {
     "date": "20261107",
-    "recorded_at": "2026-11-07 16:13:37",
-    "final_hour": "16",
+    "recorded_at": "2026-11-07 22:54:28",
+    "final_hour": "22",
     "is_day_closed": true,
-    "podoh_rate": 0.0,
-    "on_hand": 0,
-    "pod": 0,
-    "sopd": 0,
-    "dvl": 0,
-    "dc_list": []
+    "podoh_rate": 68.06,
+    "on_hand": 288,
+    "pod": 196,
+    "sopd": 230,
+    "dvl": 230,
+    "dc_list": [
+      {
+        "outlet_code": "HK2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 9,
+        "sopd": 9,
+        "dvl": 9,
+        "pod": 9,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "HLP",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 1,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 3,
+        "sopd": 3,
+        "dvl": 3,
+        "pod": 3,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "PPL",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 2,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "PY2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 5,
+        "sopd": 5,
+        "dvl": 5,
+        "pod": 4,
+        "success_rate": 80.0
+      },
+      {
+        "outlet_code": "RM6",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 260,
+        "sopd": 202,
+        "dvl": 202,
+        "pod": 169,
+        "success_rate": 65.0
+      },
+      {
+        "outlet_code": "PYR",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 8,
+        "sopd": 8,
+        "dvl": 8,
+        "pod": 8,
+        "success_rate": 100.0
+      }
+    ]
   }
 }
