@@ -1989,14 +1989,85 @@
   },
   "20261111": {
     "date": "20261111",
-    "recorded_at": "2026-11-11 01:13:35",
-    "final_hour": "1",
-    "is_day_closed": true,
-    "podoh_rate": 0.0,
-    "on_hand": 0,
-    "pod": 0,
-    "sopd": 0,
-    "dvl": 0,
-    "dc_list": []
+    "recorded_at": "2026-11-11 16:49:37",
+    "final_hour": "16",
+    "is_day_closed": false,
+    "podoh_rate": 78.13,
+    "on_hand": 320,
+    "pod": 250,
+    "sopd": 309,
+    "dvl": 307,
+    "dc_list": [
+      {
+        "outlet_code": "BKKC102",
+        "region_code": "BKKC1",
+        "area_code": "BKKC1",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 1,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 4,
+        "sopd": 4,
+        "dvl": 4,
+        "pod": 4,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "HK2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 15,
+        "sopd": 15,
+        "dvl": 15,
+        "pod": 11,
+        "success_rate": 73.33
+      },
+      {
+        "outlet_code": "HLP",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 6,
+        "sopd": 6,
+        "dvl": 6,
+        "pod": 5,
+        "success_rate": 83.33
+      },
+      {
+        "outlet_code": "PYR",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 11,
+        "sopd": 11,
+        "dvl": 11,
+        "pod": 10,
+        "success_rate": 90.91
+      },
+      {
+        "outlet_code": "RM6",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 280,
+        "sopd": 269,
+        "dvl": 268,
+        "pod": 217,
+        "success_rate": 77.5
+      },
+      {
+        "outlet_code": "PY2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 3,
+        "sopd": 3,
+        "dvl": 2,
+        "pod": 2,
+        "success_rate": 66.67
+      }
+    ]
   }
 }
