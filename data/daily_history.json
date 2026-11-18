@@ -2266,14 +2266,85 @@
   },
   "20261118": {
     "date": "20261118",
-    "recorded_at": "2026-11-18 02:59:41",
-    "final_hour": "2",
-    "is_day_closed": true,
-    "podoh_rate": 0.0,
-    "on_hand": 0,
-    "pod": 0,
-    "sopd": 0,
-    "dvl": 0,
-    "dc_list": []
+    "recorded_at": "2026-11-18 17:41:15",
+    "final_hour": "17",
+    "is_day_closed": false,
+    "podoh_rate": 62.98,
+    "on_hand": 389,
+    "pod": 245,
+    "sopd": 334,
+    "dvl": 330,
+    "dc_list": [
+      {
+        "outlet_code": "HLP",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 1,
+        "success_rate": 50.0
+      },
+      {
+        "outlet_code": "RCD",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 28,
+        "sopd": 28,
+        "dvl": 28,
+        "pod": 26,
+        "success_rate": 92.86
+      },
+      {
+        "outlet_code": "PPL",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 2,
+        "sopd": 2,
+        "dvl": 2,
+        "pod": 2,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "HK2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC101",
+        "on_hand": 1,
+        "sopd": 1,
+        "dvl": 1,
+        "pod": 0,
+        "success_rate": 0.0
+      },
+      {
+        "outlet_code": "PY2",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 7,
+        "sopd": 7,
+        "dvl": 7,
+        "pod": 7,
+        "success_rate": 100.0
+      },
+      {
+        "outlet_code": "RM6",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 331,
+        "sopd": 276,
+        "dvl": 272,
+        "pod": 197,
+        "success_rate": 59.52
+      },
+      {
+        "outlet_code": "PYR",
+        "region_code": "BKKC1",
+        "area_code": "BKKC102",
+        "on_hand": 18,
+        "sopd": 18,
+        "dvl": 18,
+        "pod": 12,
+        "success_rate": 66.67
+      }
+    ]
   }
 }
