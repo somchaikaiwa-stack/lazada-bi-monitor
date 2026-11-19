@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-11-19 02:01:53",
+  "updated_at": "2026-11-19 17:44:05",
   "date_range": "20261119",
   "partition_day1": "20261119",
   "partition_day2": "20261119",
-  "report_time": "[2]",
-  "report_hour": "2",
+  "report_time": "[17]",
+  "report_hour": "17",
   "zone": "BKKC1",
   "summary": {
     "podoh_rate": 0.0,
