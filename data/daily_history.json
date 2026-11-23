@@ -2406,5 +2406,17 @@
     "sopd": 0,
     "dvl": 0,
     "dc_list": []
+  },
+  "20261124": {
+    "date": "20261124",
+    "recorded_at": "2026-11-24 05:54:07",
+    "final_hour": "5",
+    "is_day_closed": true,
+    "podoh_rate": 0.0,
+    "on_hand": 0,
+    "pod": 0,
+    "sopd": 0,
+    "dvl": 0,
+    "dc_list": []
   }
 }
